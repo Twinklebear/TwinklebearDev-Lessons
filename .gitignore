@@ -16,6 +16,7 @@
 *.ilk
 *.tlog
 *.obj
-Lesson*/Debug/*
 *.log
 *.lastbuildstate
+*.opensdf
+Lesson*/Debug/*
