@@ -10,3 +10,12 @@
 *.lai
 *.la
 *.a
+
+*.exe
+*.pdb
+*.ilk
+*.tlog
+*.obj
+Lesson*/Debug/*
+*.log
+*.lastbuildstate
