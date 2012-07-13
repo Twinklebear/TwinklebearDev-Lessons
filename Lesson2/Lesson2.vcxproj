@@ -17,7 +17,7 @@
     <VCTargetsPath Condition="'$(VCTargetsPath11)' != '' and '$(VSVersion)' == '' and '$(VisualStudioVersion)' == ''">$(VCTargetsPath11)</VCTargetsPath>
   </PropertyGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{3F35F9B5-8F1B-4087-B2BA-4F01922217DD}</ProjectGuid>
+    <ProjectGuid>{7497FBA6-AE8A-4285-A2DF-E9B7CA15E898}</ProjectGuid>
     <RootNamespace>Lesson2</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
