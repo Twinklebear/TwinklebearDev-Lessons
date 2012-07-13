@@ -38,6 +38,9 @@ int main(int argc, char** argv){
 	//Have the program wait for 2000ms
 	SDL_Delay(2000);
 
+	//Free the loaded image
+	SDL_FreeSurface(image);
+
 	SDL_Quit();
 	
 	return 0;
