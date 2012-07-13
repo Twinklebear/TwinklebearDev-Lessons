@@ -16,7 +16,7 @@ const int SCREEN_BPP	= 32;
 *	@param file: the image file to load
 *	@returns SDL_Surface* to the optimized surface
 */
-SDL_Surface* LoadImage(std::string file){
+SDL_Surface* loadImage(std::string file){
 	//The temporary surface to store the unoptimized image in
 	SDL_Surface *loadedImage = NULL;
 	//the surface we will store the optimized image in
@@ -40,7 +40,7 @@ SDL_Surface* LoadImage(std::string file){
 *	@param src: the source surface we want to draw
 *	@param dest: the destination surface we want to blit to
 */
-void ApplySurface(int x, int y, SDL_Surface *src, SDL_Surface *dest){
+void applySurface(int x, int y, SDL_Surface *src, SDL_Surface *dest){
 	//First we must create an SDL_Rect for the position of the image, as SDL
 	//won't accept raw coordinates as the image's position
 	SDL_Rect pos;
@@ -70,8 +70,8 @@ int main(int argc, char** argv){
 	SDL_WM_SetCaption("Lesson 2", NULL);
 	
 	//Load the images
-	background = LoadImage("Lesson3res/background.bmp");
-	image = LoadImage("Lesson3res/image.bmp");
+	background = loadImage("Lesson3res/background.bmp");
+	image = loadImage("Lesson3res/image.bmp");
 	//Make sure it went ok
 	if (background == NULL || image == NULL){
 		std::cout << "Couldn't load images" << std::endl;
@@ -89,14 +89,14 @@ int main(int argc, char** argv){
 		}
 		//Rendering 
 		//We want to tile our background so draw it 4 times
-		ApplySurface(0, 0, background, screen);
-		ApplySurface(320, 0, background, screen);
-		ApplySurface(0, 240, background, screen);
-		ApplySurface(320, 240, background, screen);
+		applySurface(0, 0, background, screen);
+		applySurface(320, 0, background, screen);
+		applySurface(0, 240, background, screen);
+		applySurface(320, 240, background, screen);
 		//Draw our image in the center of the 
 		int x = SCREEN_WIDTH / 2 - image->w / 2;
 		int y = SCREEN_HEIGHT / 2 - image->h / 2;
-		ApplySurface(x, y, image, screen);
+		applySurface(x, y, image, screen);
 
 		//Update the screen
 		if (SDL_Flip(screen) == -1){
