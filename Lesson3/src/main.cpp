@@ -90,9 +90,9 @@ int main(int argc, char** argv){
 		//Rendering 
 		//We want to tile our background so draw it 4 times
 		ApplySurface(0, 0, background, screen);
-		ApplySurface(320, 0, background, screen);
-		ApplySurface(0, 240, background, screen);
-		ApplySurface(320, 240, background, screen);
+		ApplySurface(background->w, 0, background, screen);
+		ApplySurface(0, background->h, background, screen);
+		ApplySurface(background->w, background->h, background, screen);
 		//Draw our image in the center of the 
 		int x = SCREEN_WIDTH / 2 - image->w / 2;
 		int y = SCREEN_HEIGHT / 2 - image->h / 2;
