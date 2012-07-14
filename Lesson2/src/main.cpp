@@ -3,7 +3,7 @@
 #include <string>
 
 /*
-*	Lesson 2: Optimized Surface Loading and Blitting
+* Lesson 2: Optimized Surface Loading and Blitting
 */
 //Screen attributes
 const int SCREEN_WIDTH  = 640;
@@ -11,10 +11,10 @@ const int SCREEN_HEIGHT = 480;
 const int SCREEN_BPP	= 32;
 
 /*
-*	Loads a bmp image, converts it to match the BPP of the screen 
-*	so we don't convert each time we blit
-*	@param file: the image file to load
-*	@returns SDL_Surface* to the optimized surface
+* Loads a bmp image, converts it to match the BPP of the screen 
+* so we don't convert each time we blit
+* @param file: the image file to load
+* @returns SDL_Surface* to the optimized surface
 */
 SDL_Surface* LoadImage(std::string file){
 	//The temporary surface to store the unoptimized image in
@@ -34,11 +34,11 @@ SDL_Surface* LoadImage(std::string file){
 	return optimizedImage;
 }
 /*
-*	Draw an SDL_Surface source to some SDL_Surface destination, at position x, y
-*	@param x: x coordinate to draw too
-*	@param y: y coordinate to draw too
-*	@param src: the source surface we want to draw
-*	@param dest: the destination surface we want to blit to
+* Draw an SDL_Surface source to some SDL_Surface destination, at position x, y
+* @param x: x coordinate to draw too
+* @param y: y coordinate to draw too
+* @param src: the source surface we want to draw
+* @param dest: the destination surface we want to blit to
 */
 void ApplySurface(int x, int y, SDL_Surface *src, SDL_Surface *dest){
 	//First we must create an SDL_Rect for the position of the image, as SDL
@@ -47,7 +47,7 @@ void ApplySurface(int x, int y, SDL_Surface *src, SDL_Surface *dest){
 	pos.x = x;
 	pos.y = y;
 
-	//Now we can blit the surface, note that we pass pos by address because BlitSurface takes a pointer, ie. address
+	//Now we can blit the surface, note that we pass pos by address because BlitSurface takes an address
 	SDL_BlitSurface(src, NULL, dest, &pos);
 }
 
@@ -57,9 +57,8 @@ int main(int argc, char** argv){
 		std::cout << "SDL_Init failed" << std::endl;
 		return 1;
 	}
-	//The surfaces we'll be using
-	SDL_Surface *screen = NULL, *background = NULL, *image = NULL;
 	//setup our screen
+	SDL_Surface *screen = NULL;
 	screen =  SDL_SetVideoMode(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_BPP, SDL_SWSURFACE);
 	if (screen == NULL){
 		std::cout << "Couldn't open screen" << std::endl;
@@ -68,6 +67,8 @@ int main(int argc, char** argv){
 	//Set a window caption
 	SDL_WM_SetCaption("Lesson 2", NULL);
 	
+	//The image surfaces we'll be using
+	SDL_Surface *background = NULL, *image = NULL;
 	//Load the images
 	background = LoadImage("Lesson2res/background.bmp");
 	image = LoadImage("Lesson2res/image.bmp");

@@ -2,7 +2,7 @@
 #include "SDL.h"
 
 /*
-*	Lesson 1: Hello world!
+* Lesson 1: Hello world!
 */
 int main(int argc, char** argv){
 	//Our SDL_Surfaces, these will be pointers to our image's location in memory
