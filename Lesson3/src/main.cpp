@@ -11,8 +11,8 @@ const int SCREEN_WIDTH  = 640;
 const int SCREEN_HEIGHT = 480;
 const int SCREEN_BPP	= 32;
 //Globals for window and renderer
-SDL_Renderer *ren = nullptr;
-SDL_Window *win = nullptr;
+SDL_Renderer *renderer = nullptr;
+SDL_Window *window = nullptr;
 
 /*
 *  Loads an image directly to texture using SDL_image's
@@ -20,9 +20,9 @@ SDL_Window *win = nullptr;
 *  @param file: the image file to load
 *  @returns SDL_Texture* to the loaded texture
 */
-SDL_Surface* LoadImage(std::string file){
+SDL_Texture* LoadImage(std::string file){
 	SDL_Texture* tex = nullptr;
-	tex = IMG_LoadTexture(ren, file.c_str());
+	tex = IMG_LoadTexture(renderer, file.c_str());
 	if (tex == nullptr)
 		throw std::runtime_error("Failed to load image: " + file);
 	return tex;
@@ -61,8 +61,8 @@ int main(int argc, char** argv){
 	//The textures we'll be using
 	//TODO: change the images to PNG, JPG whatever
 	SDL_Texture *background = nullptr, *image = nullptr;
-	background = LoadImage("Lesson2res/background.bmp");
-	image = LoadImage("Lesson2res/image.bmp");
+	background = LoadImage("Lesson3res/background.png");
+	image = LoadImage("Lesson3res/image.png");
 	//Make sure it went ok
 	if (background == nullptr || image == nullptr)
 		return 4;
