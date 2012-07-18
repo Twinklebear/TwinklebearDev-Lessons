@@ -2,9 +2,9 @@
 #include "SDL_image.h"
 #include <stdexcept>
 #include <string>
-//TODO: Write this lesson
+
 /*
-*	Lesson 3: SDL Extension Libraries NOT YET WRITTEN
+*	Lesson 3: SDL Extension Libraries
 */
 //Screen attributes
 const int SCREEN_WIDTH  = 640;
