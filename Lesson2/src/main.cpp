@@ -1,7 +1,7 @@
 #include "SDL.h"
 #include <iostream>
 #include <string>
-
+//TODO: Update this lesson for SDL2.0
 /*
 * Lesson 2: Optimized Surface Loading and Blitting
 */
