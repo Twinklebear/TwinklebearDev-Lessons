@@ -12,10 +12,10 @@ SDL_Window *window = nullptr;
 SDL_Renderer *renderer = nullptr;
 
 /*
-* Loads a bmp image, converts it to match the BPP of the screen 
-* so we don't convert each time we blit
-* @param file: the image file to load
-* @returns SDL_Surface* to the optimized surface
+*  Loads a BMP image and converts it to an SDL_Texture that we can use
+*  for hardware accelerated rendering
+*  @param file: the image file to load
+*  @returns SDL_Texture* to the loaded texture
 */
 SDL_Texture* LoadImage(std::string file){
 	//The temporary surface to store the loaded bmp image in
@@ -34,11 +34,11 @@ SDL_Texture* LoadImage(std::string file){
 	return texture;
 }
 /*
-* Draw an SDL_Surface source to some SDL_Surface destination, at position x, y
-* @param x: x coordinate to draw too
-* @param y: y coordinate to draw too
-* @param src: the source surface we want to draw
-* @param dest: the destination surface we want to blit to
+*  Draw an SDL_Texture to an SDL_Renderer at position x, y
+*  @param x: x coordinate to draw too
+*  @param y: y coordinate to draw too
+*  @param tex: the source texture we want to draw
+*  @param rend: the renderer we want to draw too
 */
 void ApplySurface(int x, int y, SDL_Texture *tex, SDL_Renderer *rend){
 	//First we must create an SDL_Rect for the position of the image, as SDL

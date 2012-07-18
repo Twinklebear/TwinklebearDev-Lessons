@@ -1,5 +1,6 @@
 #include "SDL.h"
-#include <iostream>
+#include "SDL_image.h"
+#include <stdexcept>
 #include <string>
 //TODO: Write this lesson
 /*
@@ -9,46 +10,39 @@
 const int SCREEN_WIDTH  = 640;
 const int SCREEN_HEIGHT = 480;
 const int SCREEN_BPP	= 32;
+//Globals for window and renderer
+SDL_Renderer *ren = nullptr;
+SDL_Window *win = nullptr;
 
 /*
-*	Loads a bmp image, converts it to match the BPP of the screen 
-*	so we don't convert each time we blit
-*	@param file: the image file to load
-*	@returns SDL_Surface* to the optimized surface
+*  Loads an image directly to texture using SDL_image's
+*  built in function IMG_LoadTexture
+*  @param file: the image file to load
+*  @returns SDL_Texture* to the loaded texture
 */
 SDL_Surface* LoadImage(std::string file){
-	//The temporary surface to store the unoptimized image in
-	SDL_Surface *loadedImage = NULL;
-	//the surface we will store the optimized image in
-	SDL_Surface *optimizedImage = NULL;
-	
-	//Load the image
-	loadedImage = SDL_LoadBMP(file.c_str());
-	//if the loading went ok, optimized the surface and return it
-	if (loadedImage != NULL){
-		//SDL display format converts the passed surface to a format suitable for fast blitting
-		optimizedImage = SDL_DisplayFormat(loadedImage);
-		//Free the old image
-		SDL_FreeSurface(loadedImage);
-	}
-	return optimizedImage;
+	SDL_Texture* tex = nullptr;
+	tex = IMG_LoadTexture(ren, file.c_str());
+	if (tex == nullptr)
+		throw std::runtime_error("Failed to load image: " + file);
+	return tex;
 }
 /*
-*	Draw an SDL_Surface source to some SDL_Surface destination, at position x, y
-*	@param x: x coordinate to draw too
-*	@param y: y coordinate to draw too
-*	@param src: the source surface we want to draw
-*	@param dest: the destination surface we want to blit to
+*  Draw an SDL_Texture to an SDL_Renderer at position x, y
+*  @param x: x coordinate to draw too
+*  @param y: y coordinate to draw too
+*  @param tex: the source texture we want to draw
+*  @param rend: the renderer we want to draw too
 */
-void ApplySurface(int x, int y, SDL_Surface *src, SDL_Surface *dest){
+void ApplySurface(int x, int y, SDL_Texture *tex, SDL_Renderer *rend){
 	//First we must create an SDL_Rect for the position of the image, as SDL
 	//won't accept raw coordinates as the image's position
 	SDL_Rect pos;
 	pos.x = x;
 	pos.y = y;
-
-	//Now we can blit the surface, note that we pass pos by address because BlitSurface takes a pointer, ie. address
-	SDL_BlitSurface(src, NULL, dest, &pos);
+	//We also need to query the texture to get its width and height to use
+	SDL_QueryTexture(tex, NULL, NULL, &pos.w, &pos.h);
+	SDL_RenderCopy(rend, tex, NULL, &pos);
 }
 
 int main(int argc, char** argv){
