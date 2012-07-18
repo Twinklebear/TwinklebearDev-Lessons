@@ -7,7 +7,6 @@
 //Screen attributes
 const int SCREEN_WIDTH  = 640;
 const int SCREEN_HEIGHT = 480;
-const int SCREEN_BPP	= 32;
 //Our window and renderer
 SDL_Window *window = nullptr;
 SDL_Renderer *renderer = nullptr;
@@ -58,7 +57,7 @@ int main(int argc, char** argv){
 		return 1;
 
 	//Setup our window and renderer
-	window = SDL_CreateWindow("Lesson 2", 100, 100, 640, 480, SDL_WINDOW_SHOWN);
+	window = SDL_CreateWindow("Lesson 2", 100, 100, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
 	if (window == nullptr)
 		return 2;
 	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
