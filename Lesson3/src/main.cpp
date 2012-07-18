@@ -1,9 +1,9 @@
 #include "SDL.h"
 #include <iostream>
 #include <string>
-//TODO: Update this lesson for SDL2.0
+//TODO: Write this lesson
 /*
-*	Lesson 2: Optimized Surface Loading and Blitting
+*	Lesson 3: SDL Extension Libraries NOT YET WRITTEN
 */
 //Screen attributes
 const int SCREEN_WIDTH  = 640;
