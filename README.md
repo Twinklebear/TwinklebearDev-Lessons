@@ -3,7 +3,7 @@ TwinklebearDev-Lessons
 
 Source code and assets for the TwinklebearDev Tutorials
 
-# Lesson Index:
+## Lesson Index:
 Lesson 0: Setting up SDL   
 - A simple program to make sure you've set up SDL correctly
 
