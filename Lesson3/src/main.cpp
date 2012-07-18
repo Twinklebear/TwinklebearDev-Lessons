@@ -46,61 +46,56 @@ void ApplySurface(int x, int y, SDL_Texture *tex, SDL_Renderer *rend){
 }
 
 int main(int argc, char** argv){
-	//TODO: Add Init() CleanUp() and such functions to get stuff out of main
 	//Start up SDL and make sure it went ok
-	if (SDL_Init(SDL_INIT_EVERYTHING) == -1){
-		std::cout << "SDL_Init failed" << std::endl;
+	if (SDL_Init(SDL_INIT_EVERYTHING) == -1)
 		return 1;
-	}
-	//The surfaces we'll be using
-	SDL_Surface *screen = NULL, *background = NULL, *image = NULL;
-	//setup our screen
-	screen =  SDL_SetVideoMode(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_BPP, SDL_SWSURFACE);
-	if (screen == NULL){
-		std::cout << "Couldn't open screen" << std::endl;
-		return 1;
-	}
-	//Set a window caption
-	SDL_WM_SetCaption("Lesson 2", NULL);
-	
-	//Load the images
-	background = LoadImage("Lesson3res/background.bmp");
-	image = LoadImage("Lesson3res/image.bmp");
-	//Make sure it went ok
-	if (background == NULL || image == NULL){
-		std::cout << "Couldn't load images" << std::endl;
-		return 1;
-	}
-	//Our event queue
-	SDL_Event event;
-	//Our 'game' loop
-	bool quit = false;
-	while (!quit){
-		//Event Polling & Handling
-		while (SDL_PollEvent(&event)){
-			if (event.type == SDL_QUIT)
-				quit = true;
-		}
-		//Rendering 
-		//We want to tile our background so draw it 4 times
-		ApplySurface(0, 0, background, screen);
-		ApplySurface(background->w, 0, background, screen);
-		ApplySurface(0, background->h, background, screen);
-		ApplySurface(background->w, background->h, background, screen);
-		//Draw our image in the center of the 
-		int x = SCREEN_WIDTH / 2 - image->w / 2;
-		int y = SCREEN_HEIGHT / 2 - image->h / 2;
-		ApplySurface(x, y, image, screen);
 
-		//Update the screen
-		if (SDL_Flip(screen) == -1){
-			std::cout << "Couldn't flip screen" << std::endl;
-			return 1;
-		}
-	}
-	//Free the surfaces
-	SDL_FreeSurface(background);
-	SDL_FreeSurface(image);
+	//Setup our window and renderer
+	window = SDL_CreateWindow("Lesson 2", 100, 100, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
+	if (window == nullptr)
+		return 2;
+	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+	if (renderer == nullptr)
+		return 3;
+	
+	//The textures we'll be using
+	//TODO: change the images to PNG, JPG whatever
+	SDL_Texture *background = nullptr, *image = nullptr;
+	background = LoadImage("Lesson2res/background.bmp");
+	image = LoadImage("Lesson2res/image.bmp");
+	//Make sure it went ok
+	if (background == nullptr || image == nullptr)
+		return 4;
+
+	//Clear the window
+	SDL_RenderClear(renderer);
+
+	//Get the width and height from the texture so we know how much to move x,y by
+	//to tile it correctly
+	int bW, bH;
+	SDL_QueryTexture(background, NULL, NULL, &bW, &bH);
+	//We want to tile our background so draw it 4 times
+	ApplySurface(0, 0, background, renderer);
+	ApplySurface(bW, 0, background, renderer);
+	ApplySurface(0, bH, background, renderer);
+	ApplySurface(bW, bH, background, renderer);
+	//Draw our image in the center of the window
+	//We also need its width so query it as well
+	int iW, iH;
+	SDL_QueryTexture(image, NULL, NULL, &iW, &iH);
+	int x = SCREEN_WIDTH / 2 - iW / 2;
+	int y = SCREEN_HEIGHT / 2 - iH / 2;
+	ApplySurface(x, y, image, renderer);
+
+	//Update the screen
+	SDL_RenderPresent(renderer);
+	SDL_Delay(2000);
+
+	//Destroy the various items
+	SDL_DestroyTexture(background);
+	SDL_DestroyTexture(image);
+	SDL_DestroyRenderer(renderer);
+	SDL_DestroyWindow(window);
 
 	SDL_Quit();
 	
