@@ -2,6 +2,7 @@
 #include "SDL_image.h"
 #include <stdexcept>
 #include <string>
+#include <iostream>
 
 /*
 *	Lesson 3: SDL Extension Libraries
@@ -51,7 +52,7 @@ int main(int argc, char** argv){
 		return 1;
 
 	//Setup our window and renderer
-	window = SDL_CreateWindow("Lesson 2", 100, 100, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
+	window = SDL_CreateWindow("Lesson 3", 100, 100, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
 	if (window == nullptr)
 		return 2;
 	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
@@ -61,11 +62,14 @@ int main(int argc, char** argv){
 	//The textures we'll be using
 	//TODO: change the images to PNG, JPG whatever
 	SDL_Texture *background = nullptr, *image = nullptr;
-	background = LoadImage("Lesson3res/background.png");
-	image = LoadImage("Lesson3res/image.png");
-	//Make sure it went ok
-	if (background == nullptr || image == nullptr)
+	try {
+		background = LoadImage("Lesson3res/background.png");
+		image = LoadImage("Lesson3res/image.png");
+	}
+	catch (const std::runtime_error &e){
+		std::cout << e.what() << std::endl;
 		return 4;
+	}
 
 	//Clear the window
 	SDL_RenderClear(renderer);
