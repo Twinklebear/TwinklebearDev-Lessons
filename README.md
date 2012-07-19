@@ -15,3 +15,6 @@ Lesson 2: Don't Put Everything in Main
 
 Lesson 3: SDL Extension Libraries
 - An introduction to the various extension libraries that are available for SDL in this lesson we cover usage of SDL_image to load non-BMP images
+
+Lesson 4: Event Driven Programming
+- An introduction to using SDL's event system to get user input from the window, mouse and keyboard

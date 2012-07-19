@@ -9,6 +9,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Lesson2", "Lesson2\Lesson2.
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Lesson3", "Lesson3\Lesson3.vcxproj", "{DE8ECC00-8793-4BAE-9465-423F17AE94B7}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Lesson4", "Lesson4\Lesson4.vcxproj", "{A7623745-3756-448A-ACEC-E6318717391C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -23,6 +25,10 @@ Global
 		{7497FBA6-AE8A-4285-A2DF-E9B7CA15E898}.Debug|Win32.Build.0 = Debug|Win32
 		{7497FBA6-AE8A-4285-A2DF-E9B7CA15E898}.Release|Win32.ActiveCfg = Release|Win32
 		{7497FBA6-AE8A-4285-A2DF-E9B7CA15E898}.Release|Win32.Build.0 = Release|Win32
+		{A7623745-3756-448A-ACEC-E6318717391C}.Debug|Win32.ActiveCfg = Debug|Win32
+		{A7623745-3756-448A-ACEC-E6318717391C}.Debug|Win32.Build.0 = Debug|Win32
+		{A7623745-3756-448A-ACEC-E6318717391C}.Release|Win32.ActiveCfg = Release|Win32
+		{A7623745-3756-448A-ACEC-E6318717391C}.Release|Win32.Build.0 = Release|Win32
 		{DE8ECC00-8793-4BAE-9465-423F17AE94B7}.Debug|Win32.ActiveCfg = Debug|Win32
 		{DE8ECC00-8793-4BAE-9465-423F17AE94B7}.Debug|Win32.Build.0 = Debug|Win32
 		{DE8ECC00-8793-4BAE-9465-423F17AE94B7}.Release|Win32.ActiveCfg = Release|Win32
