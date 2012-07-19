@@ -59,7 +59,6 @@ int main(int argc, char** argv){
 		return 3;
 	
 	//The textures we'll be using
-	//TODO: change the images to PNG, JPG whatever
 	SDL_Texture *background = nullptr, *image = nullptr;
 	try {
 		background = LoadImage("Lesson3res/background.png");

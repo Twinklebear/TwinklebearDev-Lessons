@@ -52,7 +52,7 @@ int main(int argc, char** argv){
 		return 1;
 
 	//Setup our window and renderer
-	window = SDL_CreateWindow("Lesson 3", 100, 100, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
+	window = SDL_CreateWindow("Lesson 4", 100, 100, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
 	if (window == nullptr)
 		return 2;
 	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
@@ -60,43 +60,49 @@ int main(int argc, char** argv){
 		return 3;
 	
 	//The textures we'll be using
-	//TODO: change the images to PNG, JPG whatever
-	SDL_Texture *background = nullptr, *image = nullptr;
+	SDL_Texture *image = nullptr;
 	try {
-		background = LoadImage("Lesson3res/background.png");
-		image = LoadImage("Lesson3res/image.png");
+		image = LoadImage("Lesson4res/image.png");
 	}
 	catch (const std::runtime_error &e){
 		std::cout << e.what() << std::endl;
 		return 4;
 	}
-
-	//Clear the window
-	SDL_RenderClear(renderer);
-
-	//Get the width and height from the texture so we know how much to move x,y by
-	//to tile it correctly
-	int bW, bH;
-	SDL_QueryTexture(background, NULL, NULL, &bW, &bH);
-	//We want to tile our background so draw it 4 times
-	ApplySurface(0, 0, background, renderer);
-	ApplySurface(bW, 0, background, renderer);
-	ApplySurface(0, bH, background, renderer);
-	ApplySurface(bW, bH, background, renderer);
-	//Draw our image in the center of the window
-	//We also need its width so query it as well
+	//Our texture size won't change, so we can get it here
+	//instead of constantly allocating/deleting ints in the loop
 	int iW, iH;
 	SDL_QueryTexture(image, NULL, NULL, &iW, &iH);
 	int x = SCREEN_WIDTH / 2 - iW / 2;
 	int y = SCREEN_HEIGHT / 2 - iH / 2;
-	ApplySurface(x, y, image, renderer);
 
-	//Update the screen
-	SDL_RenderPresent(renderer);
-	SDL_Delay(2000);
+	//Our event type
+	SDL_Event e;
+	
+	//For tracking if we want to quit
+	bool quit = false;
+	while (!quit){
+		//Event Polling
+		while (SDL_PollEvent(&e)){
+			//If user closes he window
+			if (e.type == SDL_QUIT)
+				quit = true;
+			//If user presses any key
+			if (e.type == SDL_KEYDOWN)
+				quit = true;
+			//If user clicks the mouse
+			if (e.type == SDL_MOUSEBUTTONDOWN)
+				quit = true;
+		}
+		//Rendering
+		SDL_RenderClear(renderer);
+		//Draw the image
+		ApplySurface(x, y, image, renderer);
+
+		//Update the screen
+		SDL_RenderPresent(renderer);
+	}
 
 	//Destroy the various items
-	SDL_DestroyTexture(background);
 	SDL_DestroyTexture(image);
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);
