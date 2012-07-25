@@ -19,5 +19,7 @@
 *.log
 *.lastbuildstate
 *.opensdf
+*.sdf
+*.suo
 Lesson*/Debug/*
 Debug/stdout.txt
