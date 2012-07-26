@@ -1,7 +1,5 @@
-TwinklebearDev-Lessons
-======================
-
-Source code and assets for the TwinklebearDev Tutorials
+## TwinklebearDev-Lessons
+Source code and assets for the TwinklebearDev SDL 2.0 Lessons
 
 ## Lesson Index:
 #### Lesson 0: Setting up SDL: 
