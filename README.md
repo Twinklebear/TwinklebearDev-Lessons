@@ -18,3 +18,6 @@ Lesson 3: SDL Extension Libraries
 
 Lesson 4: Event Driven Programming
 - An introduction to using SDL's event system to get user input from the window, mouse and keyboard
+
+Lesson 5: Clipping Sprite Sheets
+- An introduction to selecting specific subsets of an image sheet, ie. sprite sheet, that we want to draw (NOT YET WRITTEN)

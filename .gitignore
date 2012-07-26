@@ -21,5 +21,6 @@
 *.opensdf
 *.sdf
 *.suo
+*.out
 Lesson*/Debug/*
 Debug/stdout.txt
