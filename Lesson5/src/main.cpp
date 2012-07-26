@@ -5,7 +5,7 @@
 #include <iostream>
 
 /*
-*	Lesson 4: Event Driven Programming
+*	Lesson 5: Clipping Sprite Sheets
 */
 //TODO: Write the lesson code
 //Screen attributes
@@ -35,15 +35,21 @@ SDL_Texture* LoadImage(std::string file){
 *  @param tex: the source texture we want to draw
 *  @param rend: the renderer we want to draw too
 */
-void ApplySurface(int x, int y, SDL_Texture *tex, SDL_Renderer *rend){
+void ApplySurface(int x, int y, SDL_Texture *tex, SDL_Renderer *rend, SDL_Rect *clip = NULL){
 	//First we must create an SDL_Rect for the position of the image, as SDL
 	//won't accept raw coordinates as the image's position
 	SDL_Rect pos;
 	pos.x = x;
 	pos.y = y;
-	//We also need to query the texture to get its width and height to use
-	SDL_QueryTexture(tex, NULL, NULL, &pos.w, &pos.h);
-	SDL_RenderCopy(rend, tex, NULL, &pos);
+	//Detect if we should clip width settings or texture width
+	if (clip != NULL){
+		pos.w = clip->w;
+		pos.h = clip->h;
+	}
+	else {
+		SDL_QueryTexture(tex, NULL, NULL, &pos.w, &pos.h);
+	}
+	SDL_RenderCopy(rend, tex, clip, &pos);
 }
 
 int main(int argc, char** argv){
@@ -52,7 +58,7 @@ int main(int argc, char** argv){
 		return 1;
 
 	//Setup our window and renderer
-	window = SDL_CreateWindow("Lesson 4", 100, 100, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
+	window = SDL_CreateWindow("Lesson 5", 100, 100, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
 	if (window == nullptr)
 		return 2;
 	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
@@ -62,7 +68,7 @@ int main(int argc, char** argv){
 	//The textures we'll be using
 	SDL_Texture *image = nullptr;
 	try {
-		image = LoadImage("Lesson4res/image.png");
+		image = LoadImage("Lesson5res/image.png");
 	}
 	catch (const std::runtime_error &e){
 		std::cout << e.what() << std::endl;
@@ -70,14 +76,29 @@ int main(int argc, char** argv){
 	}
 	//Our texture size won't change, so we can get it here
 	//instead of constantly allocating/deleting ints in the loop
-	int iW, iH;
-	SDL_QueryTexture(image, NULL, NULL, &iW, &iH);
+	int iW = 100, iH = 100;
 	int x = SCREEN_WIDTH / 2 - iW / 2;
 	int y = SCREEN_HEIGHT / 2 - iH / 2;
+	//Setup the clips
+	SDL_Rect clips[4];
+	//We use a for loop this time to setup our clips
+	int column = 0;
+	for (int i = 0; i < 4; ++i){
+		if (i != 0 && i % 2 == 0)
+			++column;
+		SDL_Rect clipRect;
+		clipRect.x = column * iW;
+		clipRect.y = i % 2 * iH;
+		clipRect.w = iW;
+		clipRect.h = iH;
+		//Add it to the clip list
+		clips[i] = clipRect;
+	}
+	//Specify a default clip to start with
+	int useClip = 0;
 
 	//Our event type
 	SDL_Event e;
-	
 	//For tracking if we want to quit
 	bool quit = false;
 	while (!quit){
@@ -87,16 +108,33 @@ int main(int argc, char** argv){
 			if (e.type == SDL_QUIT)
 				quit = true;
 			//If user presses any key
-			if (e.type == SDL_KEYDOWN)
-				quit = true;
-			//If user clicks the mouse
-			if (e.type == SDL_MOUSEBUTTONDOWN)
-				quit = true;
+			if (e.type == SDL_KEYDOWN){
+				switch (e.key.keysym.sym){
+					case SDLK_1:
+						useClip = 0;
+						break;
+					case SDLK_2:
+						useClip = 1;
+						break;
+					case SDLK_3:
+						useClip = 2;
+						break;
+					case SDLK_4:
+						useClip = 3;
+						break;
+					//For quitting, escape key
+					case SDLK_ESCAPE:
+						quit = true;
+						break;
+					default:
+						break;
+				}
+			}
 		}
 		//Rendering
 		SDL_RenderClear(renderer);
 		//Draw the image
-		ApplySurface(x, y, image, renderer);
+		ApplySurface(x, y, image, renderer, &clips[useClip]);
 
 		//Update the screen
 		SDL_RenderPresent(renderer);
@@ -108,3 +146,6 @@ int main(int argc, char** argv){
 	SDL_DestroyWindow(window);
 
 	SDL_Quit();
+
+	return 0;
+}
