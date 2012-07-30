@@ -34,6 +34,7 @@ SDL_Texture* LoadImage(std::string file){
 *  @param y: y coordinate to draw too
 *  @param tex: the source texture we want to draw
 *  @param rend: the renderer we want to draw too
+*  @param clip: the clip to take from the texture, NULL is default
 */
 void ApplySurface(int x, int y, SDL_Texture *tex, SDL_Renderer *rend, SDL_Rect *clip = NULL){
 	//First we must create an SDL_Rect for the position of the image, as SDL
