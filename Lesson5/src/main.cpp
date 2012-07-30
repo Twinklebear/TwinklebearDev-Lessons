@@ -5,9 +5,8 @@
 #include <iostream>
 
 /*
-*	Lesson 5: Clipping Sprite Sheets
+*  Lesson 5: Clipping Sprite Sheets
 */
-//TODO: Write the lesson code
 //Screen attributes
 const int SCREEN_WIDTH  = 640;
 const int SCREEN_HEIGHT = 480;
