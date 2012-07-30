@@ -41,7 +41,7 @@ void ApplySurface(int x, int y, SDL_Texture *tex, SDL_Renderer *rend, SDL_Rect *
 	SDL_Rect pos;
 	pos.x = x;
 	pos.y = y;
-	//Detect if we should clip width settings or texture width
+	//Detect if we should use clip width settings or texture width
 	if (clip != NULL){
 		pos.w = clip->w;
 		pos.h = clip->h;
