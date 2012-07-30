@@ -14,11 +14,11 @@ const int SCREEN_HEIGHT = 480;
 SDL_Renderer *renderer = nullptr;
 SDL_Window *window = nullptr;
 
-/*
+/**
 *  Loads an image directly to texture using SDL_image's
 *  built in function IMG_LoadTexture
-*  @param file: the image file to load
-*  @returns SDL_Texture* to the loaded texture
+*  @param file The image file to load
+*  @return SDL_Texture* to the loaded texture
 */
 SDL_Texture* LoadImage(std::string file){
 	SDL_Texture* tex = nullptr;
@@ -27,13 +27,13 @@ SDL_Texture* LoadImage(std::string file){
 		throw std::runtime_error("Failed to load image: " + file);
 	return tex;
 }
-/*
+/**
 *  Draw an SDL_Texture to an SDL_Renderer at position x, y
-*  @param x: x coordinate to draw too
-*  @param y: y coordinate to draw too
-*  @param tex: the source texture we want to draw
-*  @param rend: the renderer we want to draw too
-*  @param clip: the clip to take from the texture, NULL is default
+*  @param x The x coordinate to draw too
+*  @param y The y coordinate to draw too
+*  @param tex The source texture we want to draw
+*  @param rend The renderer we want to draw too
+*  @param clip The clip to take from the texture, NULL is default
 */
 void ApplySurface(int x, int y, SDL_Texture *tex, SDL_Renderer *rend, SDL_Rect *clip = NULL){
 	//First we must create an SDL_Rect for the position of the image, as SDL
@@ -65,7 +65,6 @@ int main(int argc, char** argv){
 	if (renderer == nullptr)
 		return 3;
 	
-	//The textures we'll be using
 	SDL_Texture *image = nullptr;
 	try {
 		image = LoadImage("Lesson5res/image.png");
@@ -74,25 +73,24 @@ int main(int argc, char** argv){
 		std::cout << e.what() << std::endl;
 		return 4;
 	}
-	//Our texture size won't change, so we can get it here
-	//instead of constantly allocating/deleting ints in the loop
-	int iW = 100, iH = 100;
+	//Setup image positioning
 	int x = SCREEN_WIDTH / 2 - iW / 2;
 	int y = SCREEN_HEIGHT / 2 - iH / 2;
+
 	//Setup the clips
+	//iW and iH are the desired clip width and height
+	int iW = 100, iH = 100;
 	SDL_Rect clips[4];
 	//We use a for loop this time to setup our clips
 	int column = 0;
 	for (int i = 0; i < 4; ++i){
 		if (i != 0 && i % 2 == 0)
 			++column;
-		SDL_Rect clipRect;
-		clipRect.x = column * iW;
-		clipRect.y = i % 2 * iH;
-		clipRect.w = iW;
-		clipRect.h = iH;
-		//Add it to the clip list
-		clips[i] = clipRect;
+		
+		clips[i].x = column * iW;
+		clips[i].y = i % 2 * iH;
+		clips[i].w = iW;
+		clips[i].h = iH;
 	}
 	//Specify a default clip to start with
 	int useClip = 0;
