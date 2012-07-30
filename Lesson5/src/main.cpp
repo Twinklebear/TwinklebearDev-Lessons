@@ -74,12 +74,11 @@ int main(int argc, char** argv){
 		return 4;
 	}
 	//Setup image positioning
+	int iW = 100, iH = 100;
 	int x = SCREEN_WIDTH / 2 - iW / 2;
 	int y = SCREEN_HEIGHT / 2 - iH / 2;
-
 	//Setup the clips
 	//iW and iH are the desired clip width and height
-	int iW = 100, iH = 100;
 	SDL_Rect clips[4];
 	//We use a for loop this time to setup our clips
 	int column = 0;
