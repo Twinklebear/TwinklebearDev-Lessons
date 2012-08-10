@@ -26,9 +26,29 @@ SDL_Texture* LoadImage(std::string file){
 	SDL_Texture* tex = nullptr;
 	tex = IMG_LoadTexture(renderer, file.c_str());
 	if (tex == nullptr)
-		throw std::runtime_error("Failed to load image: " + file);
+		throw std::runtime_error("Failed to load image: " + file + SDL_GetError());
 	return tex;
 }
+/*
+*
+*/
+SDL_Texture* RenderText(std::string message, std::string fontFile, SDL_Color color, int fontSize){
+	//Open the font
+	TTF_Font *font = nullptr;
+	font = TTF_OpenFont(fontFile.c_str(), fontSize);
+	if (font == nullptr)
+		throw std::runtime_error("Failed to load font: " + fontFile + TTF_GetError());
+	
+	//Render the message to an SDL_Surface, as that's what TTF_RenderText_X returns
+	SDL_Surface *surf = TTF_RenderText_Blended(font, message.c_str(), color);
+	
+	//We no longer need the font, so we can close it
+	TTF_CloseFont(font);
+
+	//Convert the surface to texture and return it
+	return SDL_CreateTextureFromSurface(renderer, surf);
+}
+
 /*
 *  Draw an SDL_Texture to an SDL_Renderer at position x, y
 *  @param x: x coordinate to draw too
@@ -49,11 +69,17 @@ void ApplySurface(int x, int y, SDL_Texture *tex, SDL_Renderer *rend){
 
 int main(int argc, char** argv){
 	//Start up SDL and make sure it went ok
-	if (SDL_Init(SDL_INIT_EVERYTHING) == -1)
+	if (SDL_Init(SDL_INIT_EVERYTHING) == -1){
+		std::cout << SDL_GetError() << std::endl;
 		return 1;
+	}
+	if (TTF_Init() == -1){
+		std::cout << TTF_GetError() << std::endl;
+		return 2;
+	}
 
 	//Setup our window and renderer
-	window = SDL_CreateWindow("Lesson 4", 100, 100, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
+	window = SDL_CreateWindow("Lesson 6", 100, 100, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
 	if (window == nullptr)
 		return 2;
 	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
@@ -63,7 +89,8 @@ int main(int argc, char** argv){
 	//The textures we'll be using
 	SDL_Texture *image = nullptr;
 	try {
-		image = LoadImage("Lesson4res/image.png");
+		SDL_Color color = { 255, 255, 255 };
+		image = RenderText("TTF fonts are cool!", "../res/Lesson6/SourceSansPro-Regular.ttf", color, 64);
 	}
 	catch (const std::runtime_error &e){
 		std::cout << e.what() << std::endl;
@@ -88,10 +115,7 @@ int main(int argc, char** argv){
 			if (e.type == SDL_QUIT)
 				quit = true;
 			//If user presses any key
-			if (e.type == SDL_KEYDOWN)
-				quit = true;
-			//If user clicks the mouse
-			if (e.type == SDL_MOUSEBUTTONDOWN)
+			if (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_ESCAPE)
 				quit = true;
 		}
 		//Rendering

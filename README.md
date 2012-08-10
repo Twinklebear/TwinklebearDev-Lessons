@@ -20,5 +20,5 @@ Source code and assets for the TwinklebearDev SDL 2.0 Lessons
 #### Lesson 5: Clipping Sprite Sheets
 - An introduction to selecting specific subsets of an image sheet, ie. sprite sheet, that we want to draw
 
-### Lesson 6: True Type Fonts with SDL_TTF (Not yet written)
+### Lesson 6: True Type Fonts with SDL_TTF (Need to write lesson)
 - An introduction to using the SDL_ttf extension library to render true type fonts
