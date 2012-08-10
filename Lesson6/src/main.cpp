@@ -26,7 +26,7 @@ SDL_Texture* LoadImage(std::string file){
 	SDL_Texture* tex = nullptr;
 	tex = IMG_LoadTexture(renderer, file.c_str());
 	if (tex == nullptr)
-		throw std::runtime_error("Failed to load image: " + file + SDL_GetError());
+		throw std::runtime_error("Failed to load image: " + file + IMG_GetError());
 	return tex;
 }
 /*

@@ -25,7 +25,7 @@ SDL_Texture* LoadImage(std::string file){
 	SDL_Texture* tex = nullptr;
 	tex = IMG_LoadTexture(renderer, file.c_str());
 	if (tex == nullptr)
-		throw std::runtime_error("Failed to load image: " + file);
+		throw std::runtime_error("Failed to load image: " + file + IMG_GetError());
 	return tex;
 }
 /*
@@ -48,16 +48,22 @@ void ApplySurface(int x, int y, SDL_Texture *tex, SDL_Renderer *rend){
 
 int main(int argc, char** argv){
 	//Start up SDL and make sure it went ok
-	if (SDL_Init(SDL_INIT_EVERYTHING) == -1)
+	if (SDL_Init(SDL_INIT_EVERYTHING) == -1){
+		std::cout << SDL_GetError() << std::endl;
 		return 1;
+	}
 
 	//Setup our window and renderer
 	window = SDL_CreateWindow("Lesson 4", 100, 100, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
-	if (window == nullptr)
+	if (window == nullptr){
+		std::cout << SDL_GetError() << std::endl;
 		return 2;
+	}
 	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
-	if (renderer == nullptr)
+	if (renderer == nullptr){
+		std::cout << SDL_GetError() << std::endl;
 		return 3;
+	}
 	
 	//The textures we'll be using
 	SDL_Texture *image = nullptr;

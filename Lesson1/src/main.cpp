@@ -6,16 +6,20 @@
 */
 int main(int argc, char** argv){
 	//First we need to start up SDL, and make sure it went ok
-	if (SDL_Init(SDL_INIT_EVERYTHING) == -1)
+	if (SDL_Init(SDL_INIT_EVERYTHING) == -1){
+		std::cout << SDL_GetError() << std::endl;
 		return 1;
+	}
 	
 	//First we need to create a window to draw things in
 	SDL_Window *win = nullptr;
 	//Create a window with title "Hello World" at 100, 100 on the screen with w:640 h:480 and show it
 	win = SDL_CreateWindow("Hello World!", 100, 100, 640, 480, SDL_WINDOW_SHOWN);
 	//Make sure creating our window went ok
-	if (win == nullptr)
+	if (win == nullptr){
+		std::cout << SDL_GetError() << std::endl;
 		return 1;
+	}
 
 	//Now we create our renderer
 	SDL_Renderer *ren = nullptr;
@@ -25,15 +29,19 @@ int main(int argc, char** argv){
 	//SDL_RENDERER_PRESENTVSYNC: We want the renderer's present function (update screen) to be
 	//synchornized with the monitor's refresh rate
 	ren = SDL_CreateRenderer(win, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
-	if (ren == nullptr)
+	if (ren == nullptr){
+		std::cout << SDL_GetError() << std::endl;
 		return 1;
+	}
 
 	//SDL 2.0 now uses textures to draw things, but without the SDL_image extension we still
 	//must load the image as a bmp SDL_Surface and the convert it
 	SDL_Surface *bmp = nullptr;
 	bmp = SDL_LoadBMP("Lesson1res/hello.bmp");
-	if (bmp == nullptr)
+	if (bmp == nullptr){
+		std::cout << SDL_GetError() << std::endl;
 		return 1;
+	}
 	//The texture we'll be drawing
 	SDL_Texture *tex = nullptr;
 	//Now convert it to a texture that is optimized for our renderer
