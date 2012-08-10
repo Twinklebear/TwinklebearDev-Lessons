@@ -6,7 +6,7 @@
 #include <iostream>
 
 /*
-*	Lesson 4: Event Driven Programming
+*  Lesson 6: True Type Fonts with SDL_ttf
 */
 //TODO: Write the lesson code
 //Screen attributes
@@ -20,7 +20,7 @@ SDL_Window *window = nullptr;
 *  Loads an image directly to texture using SDL_image's
 *  built in function IMG_LoadTexture
 *  @param file: the image file to load
-*  @returns SDL_Texture* to the loaded texture
+*  @return SDL_Texture* to the loaded texture
 */
 SDL_Texture* LoadImage(std::string file){
 	SDL_Texture* tex = nullptr;
@@ -30,7 +30,12 @@ SDL_Texture* LoadImage(std::string file){
 	return tex;
 }
 /*
-*
+*  Generate a texture containing the message we want to display
+*  @param message The message we want to display
+*  @param fontFile The font we want to use to render the text
+*  @param color The color we want the text to be
+*  @param fontSize The size we want the font to be
+*  @return
 */
 SDL_Texture* RenderText(std::string message, std::string fontFile, SDL_Color color, int fontSize){
 	//Open the font
@@ -79,13 +84,19 @@ int main(int argc, char** argv){
 	}
 
 	//Setup our window and renderer
-	window = SDL_CreateWindow("Lesson 6", 100, 100, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
-	if (window == nullptr)
+	window = SDL_CreateWindow("Lesson 6", SDL_WINDOWPOS_CENTERED, 
+		SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
+	if (window == nullptr){
+		std::cout << SDL_GetError() << std::endl;
 		return 2;
-	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
-	if (renderer == nullptr)
+	}
+	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED 
+		| SDL_RENDERER_PRESENTVSYNC);
+	if (renderer == nullptr){
+		std::cout << SDL_GetError() << std::endl;
 		return 3;
-	
+	}
+
 	//The textures we'll be using
 	SDL_Texture *image = nullptr;
 	try {

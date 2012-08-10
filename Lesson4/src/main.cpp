@@ -18,8 +18,8 @@ SDL_Window *window = nullptr;
 /*
 *  Loads an image directly to texture using SDL_image's
 *  built in function IMG_LoadTexture
-*  @param file: the image file to load
-*  @returns SDL_Texture* to the loaded texture
+*  @param file the image file to load
+*  @return SDL_Texture* to the loaded texture
 */
 SDL_Texture* LoadImage(std::string file){
 	SDL_Texture* tex = nullptr;
@@ -30,10 +30,10 @@ SDL_Texture* LoadImage(std::string file){
 }
 /*
 *  Draw an SDL_Texture to an SDL_Renderer at position x, y
-*  @param x: x coordinate to draw too
-*  @param y: y coordinate to draw too
-*  @param tex: the source texture we want to draw
-*  @param rend: the renderer we want to draw too
+*  @param x x coordinate to draw too
+*  @param y y coordinate to draw too
+*  @param tex the source texture we want to draw
+*  @param rend the renderer we want to draw too
 */
 void ApplySurface(int x, int y, SDL_Texture *tex, SDL_Renderer *rend){
 	//First we must create an SDL_Rect for the position of the image, as SDL
@@ -54,12 +54,14 @@ int main(int argc, char** argv){
 	}
 
 	//Setup our window and renderer
-	window = SDL_CreateWindow("Lesson 4", 100, 100, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
+	window = SDL_CreateWindow("Lesson 4", SDL_WINDOWPOS_CENTERED, 
+		SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
 	if (window == nullptr){
 		std::cout << SDL_GetError() << std::endl;
 		return 2;
 	}
-	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED 
+		| SDL_RENDERER_PRESENTVSYNC);
 	if (renderer == nullptr){
 		std::cout << SDL_GetError() << std::endl;
 		return 3;

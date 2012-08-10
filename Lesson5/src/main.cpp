@@ -60,12 +60,14 @@ int main(int argc, char** argv){
 	}
 
 	//Setup our window and renderer
-	window = SDL_CreateWindow("Lesson 5", 100, 100, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
+	window = SDL_CreateWindow("Lesson 5", SDL_WINDOWPOS_CENTERED, 
+		SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
 	if (window == nullptr){
 		std::cout << SDL_GetError() << std::endl;
 		return 2;
 	}
-	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED 
+		| SDL_RENDERER_PRESENTVSYNC);
 	if (renderer == nullptr){
 		std::cout << SDL_GetError() << std::endl;
 		return 3;

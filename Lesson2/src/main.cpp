@@ -15,8 +15,8 @@ SDL_Renderer *renderer = nullptr;
 /*
 *  Loads a BMP image and converts it to an SDL_Texture that we can use
 *  for hardware accelerated rendering
-*  @param file: the image file to load
-*  @returns SDL_Texture* to the loaded texture
+*  @param file the image file to load
+*  @return SDL_Texture* to the loaded texture
 */
 SDL_Texture* LoadImage(std::string file){
 	//The temporary surface to store the loaded bmp image in
@@ -39,10 +39,10 @@ SDL_Texture* LoadImage(std::string file){
 }
 /*
 *  Draw an SDL_Texture to an SDL_Renderer at position x, y
-*  @param x: x coordinate to draw too
-*  @param y: y coordinate to draw too
-*  @param tex: the source texture we want to draw
-*  @param rend: the renderer we want to draw too
+*  @param x x coordinate to draw too
+*  @param y y coordinate to draw too
+*  @param tex the source texture we want to draw
+*  @param rend the renderer we want to draw too
 */
 void ApplySurface(int x, int y, SDL_Texture *tex, SDL_Renderer *rend){
 	//First we must create an SDL_Rect for the position of the image, as SDL
