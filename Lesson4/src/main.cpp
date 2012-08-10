@@ -70,7 +70,7 @@ int main(int argc, char** argv){
 	//The textures we'll be using
 	SDL_Texture *image = nullptr;
 	try {
-		image = LoadImage("Lesson4res/image.png");
+		image = LoadImage("../res/Lesson4/image.png");
 	}
 	catch (const std::runtime_error &e){
 		std::cout << e.what() << std::endl;

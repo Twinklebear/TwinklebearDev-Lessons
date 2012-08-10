@@ -69,8 +69,8 @@ int main(int argc, char** argv){
 	//The textures we'll be using
 	SDL_Texture *background = nullptr, *image = nullptr;
 	try {
-		background = LoadImage("Lesson3res/background.png");
-		image = LoadImage("Lesson3res/image.png");
+		background = LoadImage("../res/Lesson3/background.png");
+		image = LoadImage("../res/Lesson3/image.png");
 	}
 	catch (const std::runtime_error &e){
 		std::cout << e.what() << std::endl;

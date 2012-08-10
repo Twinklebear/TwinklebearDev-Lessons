@@ -76,8 +76,8 @@ int main(int argc, char** argv){
 
 	//The textures we'll be using
 	SDL_Texture *background = nullptr, *image = nullptr;
-	background = LoadImage("Lesson2res/background.bmp");
-	image = LoadImage("Lesson2res/image.bmp");
+	background = LoadImage("../res/Lesson2/background.bmp");
+	image = LoadImage("../res/Lesson2/image.bmp");
 	//Make sure it went ok
 	if (background == nullptr || image == nullptr)
 		return 4;

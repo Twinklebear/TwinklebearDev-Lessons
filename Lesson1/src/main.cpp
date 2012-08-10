@@ -37,7 +37,7 @@ int main(int argc, char** argv){
 	//SDL 2.0 now uses textures to draw things, but without the SDL_image extension we still
 	//must load the image as a bmp SDL_Surface and the convert it
 	SDL_Surface *bmp = nullptr;
-	bmp = SDL_LoadBMP("Lesson1res/hello.bmp");
+	bmp = SDL_LoadBMP("../res/Lesson1/hello.bmp");
 	if (bmp == nullptr){
 		std::cout << SDL_GetError() << std::endl;
 		return 1;

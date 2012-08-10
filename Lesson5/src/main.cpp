@@ -75,7 +75,7 @@ int main(int argc, char** argv){
 	
 	SDL_Texture *image = nullptr;
 	try {
-		image = LoadImage("Lesson5res/image.png");
+		image = LoadImage("../res/Lesson5/image.png");
 	}
 	catch (const std::runtime_error &e){
 		std::cout << e.what() << std::endl;
