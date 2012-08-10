@@ -35,7 +35,7 @@ SDL_Texture* LoadImage(std::string file){
 *  @param fontFile The font we want to use to render the text
 *  @param color The color we want the text to be
 *  @param fontSize The size we want the font to be
-*  @return
+*  @return An SDL_Texture containing the rendered message
 */
 SDL_Texture* RenderText(std::string message, std::string fontFile, SDL_Color color, int fontSize){
 	//Open the font
@@ -46,12 +46,13 @@ SDL_Texture* RenderText(std::string message, std::string fontFile, SDL_Color col
 	
 	//Render the message to an SDL_Surface, as that's what TTF_RenderText_X returns
 	SDL_Surface *surf = TTF_RenderText_Blended(font, message.c_str(), color);
-	
+	SDL_Texture *texture = SDL_CreateTextureFromSurface(renderer, surf);
+	SDL_FreeSurface(surf);
 	//We no longer need the font, so we can close it
 	TTF_CloseFont(font);
 
 	//Convert the surface to texture and return it
-	return SDL_CreateTextureFromSurface(renderer, surf);
+	return texture;
 }
 
 /*
