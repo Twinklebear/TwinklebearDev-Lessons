@@ -1,6 +1,6 @@
-#include "SDL.h"
-#include "SDL_image.h"
-#include "SDL_ttf.h"
+#include <SDL.h>
+#include <SDL_image.h>
+#include <SDL_ttf.h>
 #include <stdexcept>
 #include <string>
 #include <iostream>
@@ -47,14 +47,12 @@ SDL_Texture* RenderText(std::string message, std::string fontFile, SDL_Color col
 	//Render the message to an SDL_Surface, as that's what TTF_RenderText_X returns
 	SDL_Surface *surf = TTF_RenderText_Blended(font, message.c_str(), color);
 	SDL_Texture *texture = SDL_CreateTextureFromSurface(renderer, surf);
+	//Clean up unneeded stuff
 	SDL_FreeSurface(surf);
-	//We no longer need the font, so we can close it
 	TTF_CloseFont(font);
 
-	//Convert the surface to texture and return it
 	return texture;
 }
-
 /*
 *  Draw an SDL_Texture to an SDL_Renderer at position x, y
 *  @param x: x coordinate to draw too
