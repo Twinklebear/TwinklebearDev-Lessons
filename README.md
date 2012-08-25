@@ -23,4 +23,4 @@ Source code and assets for the TwinklebearDev SDL 2.0 Lessons
 ### Lesson 6: True Type Fonts with SDL_ttf
 - An introduction to using the SDL_ttf extension library to render true type fonts
 
-### Lesson 7: Desiging a Button (Nothing written)
+### Lesson 7: Taking Advantage of Classes (Nothing written)
