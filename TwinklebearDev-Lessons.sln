@@ -15,12 +15,18 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Lesson5", "Lesson5\Lesson5.
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Lesson6", "Lesson6\Lesson6.vcxproj", "{3023AFFB-6378-4B58-A43E-182C31487D1F}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Lesson7", "Lesson7\Lesson7.vcxproj", "{2FD15742-793A-445C-8CA5-0D5C0940B84F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
 		Release|Win32 = Release|Win32
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2FD15742-793A-445C-8CA5-0D5C0940B84F}.Debug|Win32.ActiveCfg = Debug|Win32
+		{2FD15742-793A-445C-8CA5-0D5C0940B84F}.Debug|Win32.Build.0 = Debug|Win32
+		{2FD15742-793A-445C-8CA5-0D5C0940B84F}.Release|Win32.ActiveCfg = Release|Win32
+		{2FD15742-793A-445C-8CA5-0D5C0940B84F}.Release|Win32.Build.0 = Release|Win32
 		{3023AFFB-6378-4B58-A43E-182C31487D1F}.Debug|Win32.ActiveCfg = Debug|Win32
 		{3023AFFB-6378-4B58-A43E-182C31487D1F}.Debug|Win32.Build.0 = Debug|Win32
 		{3023AFFB-6378-4B58-A43E-182C31487D1F}.Release|Win32.ActiveCfg = Release|Win32
