@@ -71,6 +71,7 @@ int main(int argc, char** argv){
 
         Window::Present();
 	}
-	
+	Window::Quit();
+
 	return 0;
 }
