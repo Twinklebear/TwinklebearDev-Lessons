@@ -2,7 +2,6 @@
 #define WINDOW_H
 
 #include <string>
-#include <stdexcept>
 #include <memory>
 #include <SDL.h>
 
