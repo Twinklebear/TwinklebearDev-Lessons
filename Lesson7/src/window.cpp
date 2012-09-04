@@ -88,5 +88,7 @@ void Window::Present(){
     SDL_RenderPresent(mRenderer.get());
 }
 SDL_Rect Window::Box(){
+    //Update mBox to match the current window size
+    SDL_GetWindowSize(mWindow.get(), &mBox.w, &mBox.h);
     return mBox;
 }
