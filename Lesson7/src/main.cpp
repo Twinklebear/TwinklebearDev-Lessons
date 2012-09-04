@@ -78,6 +78,8 @@ int main(int argc, char** argv){
 
         Window::Present();
 	}
+    SDL_DestroyTexture(img);
+    SDL_DestroyTexture(msg);
 	Window::Quit();
 
 	return 0;

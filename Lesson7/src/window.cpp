@@ -11,7 +11,7 @@ std::unique_ptr<SDL_Window, void (*)(SDL_Window*)> Window::mWindow
 	= std::unique_ptr<SDL_Window, void (*)(SDL_Window*)>(nullptr, SDL_DestroyWindow);
 std::unique_ptr<SDL_Renderer, void (*)(SDL_Renderer*)> Window::mRenderer
 	= std::unique_ptr<SDL_Renderer, void (*)(SDL_Renderer*)>(nullptr, SDL_DestroyRenderer);
-//other static members
+//Other static members
 SDL_Rect Window::mBox;
 
 Window::Window(){
