@@ -16,11 +16,17 @@ int main(int argc, char** argv){
         std::cout << e.what() << std::endl;
     }
 
-    //Load up an image
-    SDL_Texture *img;
+    //Load up an image and some text
+    SDL_Texture *img, *msg;
     try {
-        std::string file = "../res/Lesson7/image.png";
-        img = Window::LoadImage(file);
+        //Load the image
+        std::string imgFile = "../res/Lesson7/image.png";
+        img = Window::LoadImage(imgFile);
+        //Load the font and message
+        std::string fontFile = "../res/Lesson7/SourceSansPro-Regular.ttf";
+        std::string text = "TTF Fonts too!";
+        SDL_Color color = { 255, 255, 255 };
+        msg = Window::RenderText(text, fontFile, color, 25);
     }
     catch (const std::runtime_error &e){
         //Catch error and crash
@@ -29,9 +35,9 @@ int main(int argc, char** argv){
         return -1;
     }
     //Set a position to draw it with
-    SDL_Rect pos = { Window::Box().w / 2 - 100 / 2,
-                     Window::Box().h / 2 - 100 / 2,
-                     100, 100 };
+    SDL_Rect pos = { Window::Box().w / 2 - 150 / 2,
+                     Window::Box().h / 2 - 150 / 2,
+                     150, 150 };
     //The angle to draw at, so we can play with it
     int angle = 0;
 
@@ -68,6 +74,7 @@ int main(int argc, char** argv){
         Window::Clear();
         //Draw our image with a 45 degree rotation
         Window::Draw(img, pos, NULL, angle);
+        Window::Draw(msg, pos, NULL, angle, 0, 0, SDL_FLIP_VERTICAL);
 
         Window::Present();
 	}
