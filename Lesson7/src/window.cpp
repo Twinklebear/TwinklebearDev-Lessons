@@ -25,7 +25,7 @@ void Window::Init(std::string title){
     if (TTF_Init() == -1)
 		throw std::runtime_error("TTF Init Failed");
 
-    //Setup our window
+    //Setup our window size
     mBox.x = 0;
     mBox.y = 0;
     mBox.w = 640;
