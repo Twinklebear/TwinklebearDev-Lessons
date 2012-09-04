@@ -38,8 +38,7 @@ int main(int argc, char** argv){
     }
     //Set a position to draw it with
     SDL_Rect pos = { Window::Box().w / 2 - 150 / 2,
-                     Window::Box().h / 2 - 150 / 2,
-                     150, 150 };
+        Window::Box().h / 2 - 150 / 2, 150, 150 };
     //The angle to draw at, so we can play with it
     int angle = 0;
 
