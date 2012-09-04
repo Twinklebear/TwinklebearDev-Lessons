@@ -73,7 +73,7 @@ int main(int argc, char** argv){
 		}
         //RENDERING
         Window::Clear();
-        //Draw our image with a 45 degree rotation
+
         Window::Draw(img, pos, NULL, angle);
         Window::Draw(msg, pos, NULL, angle, 0, 0, SDL_FLIP_VERTICAL);
 
