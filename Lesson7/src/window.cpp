@@ -50,7 +50,7 @@ void Window::Quit(){
 void Window::Draw(SDL_Texture *tex, SDL_Rect &dstRect, SDL_Rect *clip, float angle, 
                   int xPivot, int yPivot, SDL_RendererFlip flip)
 {
-    //Convert pivot pos from relative to object's center to screen space
+    //Convert pivot pos from relative to object's top-left corner to be relative to its center
     xPivot += dstRect.w / 2;
     yPivot += dstRect.h / 2;
     //SDL expects an SDL_Point as the pivot location
