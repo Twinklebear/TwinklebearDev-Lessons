@@ -13,8 +13,6 @@ void Timer::Start(){
 void Timer::Stop(){
     mStarted = false;
     mPaused  = false;
-    mStartTicks = 0;
-    mPausedTicks = 0;
 }
 void Timer::Pause(){
     if (mStarted && !mPaused){
