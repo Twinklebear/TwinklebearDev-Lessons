@@ -23,5 +23,8 @@ Source code and assets for the TwinklebearDev SDL 2.0 Lessons
 ### Lesson 6: True Type Fonts with SDL_ttf
 - An introduction to using the SDL_ttf extension library to render true type fonts
 
-### Lesson 7: Taking Advantage of Classes (Code written)
+### Lesson 7: Taking Advantage of Classes
 - An introduction to creating an easy to use Window class to manage the SDL_Window and SDL_Renderer
+
+### Lesson 8: Timers
+- An introduction to using timers in SDL, through the creation and usage of a Timer class
