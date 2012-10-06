@@ -91,7 +91,6 @@ int main(int argc, char** argv){
             //Update w/h
             SDL_QueryTexture(ticks, NULL, NULL, &ticksBox.w, &ticksBox.h);
         }
-
         //RENDERING
         Window::Clear();
 
