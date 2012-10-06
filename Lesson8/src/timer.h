@@ -37,5 +37,4 @@ private:
     bool mStarted, mPaused;
 };
 
-
 #endif
