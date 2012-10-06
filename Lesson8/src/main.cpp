@@ -13,6 +13,8 @@ int main(int argc, char** argv){
     }
     catch (const std::runtime_error &e){
         std::cout << e.what() << std::endl;
+        Window::Quit();
+        return -1;
     }
 
     //Our timer:
