@@ -1,8 +1,6 @@
 #ifndef TIMER_H
 #define TIMER_H
 
-#include <SDL.h>
-
 /**
 *  A simple timer
 */
