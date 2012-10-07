@@ -11,10 +11,6 @@
 */
 class Window {
 public:
-    //The constructor and destructor don't actually do anything as 
-    //the class is pure static
-    Window();
-    ~Window();
     /**
 	*  Initialize SDL, setup the window and renderer
 	*  @param title The window title

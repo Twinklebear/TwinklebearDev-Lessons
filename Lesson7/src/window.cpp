@@ -14,10 +14,6 @@ std::unique_ptr<SDL_Renderer, void (*)(SDL_Renderer*)> Window::mRenderer
 //Other static members
 SDL_Rect Window::mBox;
 
-Window::Window(){
-}
-Window::~Window(){
-}
 void Window::Init(std::string title){
     //initialize all SDL subsystems
     if (SDL_Init(SDL_INIT_EVERYTHING) == -1)
