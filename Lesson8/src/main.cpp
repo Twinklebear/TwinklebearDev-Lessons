@@ -57,8 +57,8 @@ int main(int argc, char** argv){
 			if (e.type == SDL_QUIT)
 				quit = true;
 			//If user presses any key
-			if (e.type == SDL_KEYDOWN){
-				switch (e.key.keysym.sym){
+            if (e.type == SDL_KEYDOWN){
+	            switch (e.key.keysym.sym){
                     //Start/stop the timer
                     case SDLK_s:
                         //If timer was running, stop it
@@ -73,14 +73,14 @@ int main(int argc, char** argv){
                         else
                             timer.Pause();
                         break;
-					//For quitting, escape key
-					case SDLK_ESCAPE:
-						quit = true;
-						break;
-					default:
-						break;
-				}
-			}
+		            //For quitting, escape key
+		            case SDLK_ESCAPE:
+			            quit = true;
+			            break;
+		            default:
+			            break;
+	            }
+            }
 		}
         //LOGIC
         //If the timer is running, update the ticks message
@@ -100,8 +100,8 @@ int main(int argc, char** argv){
         Window::Draw(ticks, ticksBox);
 
         Window::Present();
-	}
+    }
     Window::Quit();
 	
-	return 0;
+    return 0;
 }
