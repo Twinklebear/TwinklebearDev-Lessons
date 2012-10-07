@@ -101,6 +101,8 @@ int main(int argc, char** argv){
 
         Window::Present();
     }
+    SDL_DestroyTexture(msg);
+    SDL_DestroyTexture(ticks);
     Window::Quit();
 	
     return 0;
