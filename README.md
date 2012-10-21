@@ -26,5 +26,5 @@ Source code and assets for the TwinklebearDev SDL 2.0 Lessons
 ### Lesson 7: Taking Advantage of Classes
 - An introduction to creating an easy to use Window class to manage the SDL_Window and SDL_Renderer
 
-### Lesson 8: Timers (Rough code version written)
+### Lesson 8: Timers
 - An introduction to using timers in SDL, through the creation and usage of a Timer class
