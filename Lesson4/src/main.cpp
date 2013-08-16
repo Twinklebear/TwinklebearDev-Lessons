@@ -16,7 +16,6 @@
 /*
 *	Lesson 4: Event Driven Programming
 */
-//TODO: Write the lesson code
 //Screen attributes
 const int SCREEN_WIDTH  = 640;
 const int SCREEN_HEIGHT = 480;
