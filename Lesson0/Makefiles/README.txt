@@ -1,0 +1,2 @@
+Select the appropriate makefile for your system and copy it to the root directory of the project
+ie. for Lesson0, copy to Lesson0/Makefile

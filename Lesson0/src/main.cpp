@@ -1,11 +1,19 @@
-#include "SDL.h"
+#include <iostream>
+#if defined(_MSC_VER)
+#include <SDL.h>
+#else
+#include <SDL2/SDL.h>
+#endif
 
 /*
-*  Lesson0: A simple program to make sure your SDL environment is set up correctly
+* Lesson 0: Test to make sure SDL is setup properly
 */
-int main(int argc, char** argv){
-	SDL_Init(SDL_INIT_EVERYTHING);
+int main(int argc, char **argv){
+	if (SDL_Init(SDL_INIT_EVERYTHING) == -1){
+		std::cout << "SDL_Init Error: " << SDL_GetError() << std::endl;
+		return 1;
+	}
 	SDL_Quit();
-	
+
 	return 0;
 }
