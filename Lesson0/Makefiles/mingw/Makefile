@@ -9,25 +9,31 @@ CFLAGS = -Wall -c -std=c++11 $(SDLINCLUDE)
 LDFLAGS = -lmingw32 -mwindows -mconsole $(SDLLIB)
 # The source code and build output directories
 SRC = src
-OUT = build
+BUILD = build
+# Executable will be put in the top level of the repo under out/
+OUT = ..\out
 EXE = $(OUT)\Lesson0.exe
 
-all: $(EXE) 
+all: $(EXE)
 
-$(EXE): $(OUT)/main.o | $(OUT)/SDL2.dll
+$(EXE): $(BUILD)\main.o | $(OUT)\SDL2.dll
 	$(CXX) $< $(LDFLAGS) -o $@
 
-$(OUT)/main.o: $(SRC)/main.cpp | $(OUT)
+$(BUILD)\main.o: $(SRC)\main.cpp | $(BUILD)
 	$(CXX) $(CFLAGS) $< -o $@
 
-# Automate copying of the SDL dll to our output folder
-$(OUT)/SDL2.dll:
-	COPY $(SDLBIN) $(OUT)/SDL2.dll
-
 # Make sure the build directory exists
+$(BUILD):
+	mkdir -p $(BUILD)
+
+# Automate copying of the SDL dll to our output folder
+$(OUT)\SDL2.dll: | $(OUT)
+	copy $(SDLBIN) $(OUT)\SDL2.dll
+
+# Make sure the exe output directory exists
 $(OUT):
 	mkdir -p $(OUT)
 
 # Note that it's $(OUT)\*.o here to avoid some weird windows issue
 clean:
-	del $(OUT)\*.o && del $(EXE)
+	del $(BUILD)\*.o && del $(EXE)
