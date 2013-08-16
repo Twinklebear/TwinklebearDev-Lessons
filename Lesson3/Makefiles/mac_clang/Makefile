@@ -1,5 +1,5 @@
 CXX = clang++
-SDL = -framework SDL2
+SDL = -framework SDL2 -framework SDL2_image
 CFLAGS = -Wall -c -std=c++11 
 LDFLAGS = $(SDL)
 # The source and build output directories
@@ -7,7 +7,7 @@ SRC = src
 BUILD = build
 # Executables will be written to the top level of the repo under out/
 OUT = ../out
-EXE = $(OUT)/Lesson2
+EXE = $(OUT)/Lesson3
 
 all: $(EXE)
 

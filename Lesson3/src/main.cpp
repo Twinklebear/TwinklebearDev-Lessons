@@ -1,11 +1,15 @@
 #include <stdexcept>
 #include <string>
 #include <iostream>
+
 #if defined(_MSC_VER)
 #include <SDL.h>
 #include <SDL_image.h>
-#else
+#elif defined(__clang__)
+#include <SDL2_image/SDL_image.h>
+#elif defined(__clang__) or defined(__GNUC__)
 #include <SDL2/SDL.h>
+#else
 #include <SDL2/SDL_image.h>
 #endif
 
