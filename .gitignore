@@ -4,6 +4,9 @@
 *.o
 *.dll
 
+# Swap files
+*.swp
+
 # Compiled Dynamic libraries
 *.so
 
