@@ -28,6 +28,7 @@ $(BUILD):
 $(OUT):
 	mkdir -p $(OUT)
 
+.PHONY: clean
 clean:
 	rm $(BUILD)/*.o && rm $(EXE)
 
