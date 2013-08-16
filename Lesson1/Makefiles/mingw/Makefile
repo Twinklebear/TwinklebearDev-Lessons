@@ -13,7 +13,7 @@ SRC = src
 BUILD = build
 # Executable will be put in the top level of the repo under out/
 OUT = ..\out
-EXE = $(OUT)\Lesson0.exe
+EXE = $(OUT)\Lesson1.exe
 
 all: $(EXE)
 

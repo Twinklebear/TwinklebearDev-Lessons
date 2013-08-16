@@ -1,8 +1,12 @@
 #include <iostream>
-#include "SDL.h"
+#if defined(_MSC_VER)
+#include <SDL.h>
+#else
+#include <SDL2/SDL.h>
+#endif
 
 /*
-*  Lesson 1: Hello world!
+*  Lesson 1: Hello World!
 */
 int main(int argc, char** argv){
 	//First we need to start up SDL, and make sure it went ok
