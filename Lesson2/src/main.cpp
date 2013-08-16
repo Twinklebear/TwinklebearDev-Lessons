@@ -1,6 +1,10 @@
-#include "SDL.h"
 #include <string>
 #include <iostream>
+#if defined(_MSC_VER)
+#include <SDL.h>
+#else
+#include <SDL2/SDL.h>
+#endif
 
 /*
 * Lesson 2: Don't Put Everything in Main
