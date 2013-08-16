@@ -1,8 +1,13 @@
-#include "SDL.h"
-#include "SDL_image.h"
 #include <stdexcept>
 #include <string>
 #include <iostream>
+#if defined(_MSC_VER)
+#include <SDL.h>
+#include <SDL_image.h>
+#else
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
+#endif
 
 /*
 *  Lesson 3: SDL Extension Libraries
