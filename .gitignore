@@ -55,5 +55,6 @@ ipch/
 *.psess
 *.vsp
 
-Lesson*/Debug/*
-Debug/stdout.txt
+Lesson*/Debug
+Lesson*/Release
+out/
