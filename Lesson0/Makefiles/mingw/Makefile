@@ -4,6 +4,7 @@ SDLLIB = -LC:\SDL2-2.0.0-mingw\i686-w64-mingw32\lib -lSDL2main -lSDL2
 SDLINCLUDE = -IC:\SDL2-2.0.0-mingw\i686-w64-mingw32\include
 # For copying the dll to our output folder
 SDLBIN = C:\SDL2-2.0.0-mingw\i686-w64-mingw32\bin\SDL2.dll
+# If your compiler is a bit old you may need to use -std=c++0x instead of -std=c++11
 CFLAGS = -Wall -c -std=c++11 $(SDLINCLUDE)
 # The -mwindows flag will build as a windows application, ie. no console
 LDFLAGS = -lmingw32 -mwindows -mconsole $(SDLLIB)
