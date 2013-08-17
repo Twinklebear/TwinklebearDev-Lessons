@@ -45,13 +45,13 @@ int main(int argc, char** argv){
 	//To use a hardware accelerated texture for rendering we can create one from
 	//the surface we loaded
 	SDL_Texture *tex = SDL_CreateTextureFromSurface(ren, bmp);
+	//We no longer need the surface
+	SDL_FreeSurface(bmp);
 	if (tex == nullptr){
 		std::cout << "SDL_CreateTextureFromSurface Error: " << SDL_GetError() << std::endl;
 		return 1;
 	}
-	//We no longer need the surface
-	SDL_FreeSurface(bmp);
-
+	
 	//Now lets draw our image
 	//First clear the renderer
 	SDL_RenderClear(ren);
