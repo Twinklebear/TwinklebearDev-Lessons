@@ -6,7 +6,7 @@
 #include <SDL2/SDL.h>
 #endif
 
-/*
+/**
 * Lesson 2: Don't Put Everything in Main
 */
 //Screen attributes
@@ -16,28 +16,35 @@ const int SCREEN_HEIGHT = 480;
 SDL_Window *window = nullptr;
 SDL_Renderer *renderer = nullptr;
 
-/*
-*  Loads a BMP image and converts it to an SDL_Texture that we can use
-*  for hardware accelerated rendering
-*  @param file the image file to load
-*  @return SDL_Texture* to the loaded texture
+/**
+* Log an SDL error with some error message to the output stream of our choice
+* @param os The output stream to write the message too
+* @param msg The error message to write, format will be msg error: SDL_GetError()
 */
-SDL_Texture* LoadImage(std::string file){
-	//The temporary surface to store the loaded bmp image in
-	SDL_Surface *loadedImage = nullptr;
-	//The texture we will store the converted texture in
+void logSDLError(std::ostream &os, const std::string &msg){
+	os << msg << " error: " << SDL_GetError() << std::endl;
+}
+
+/**
+* Loads a BMP image and converts it to an SDL_Texture that we can use
+* for rendering
+* @param file the image file to load
+* @return SDL_Texture* to the loaded texture
+*/
+SDL_Texture* loadTexture(const std::string &file){
 	SDL_Texture *texture = nullptr;
-	
 	//Load the image
-	loadedImage = SDL_LoadBMP(file.c_str());
-	//if the loading went ok, convert to texture and return the texture
+	SDL_Surface *loadedImage = SDL_LoadBMP(file.c_str());
+	//If the loading went ok, convert to texture and return the texture
 	if (loadedImage != nullptr){
 		texture = SDL_CreateTextureFromSurface(renderer, loadedImage);
-		//Free the old image
 		SDL_FreeSurface(loadedImage);
+		//Make sure converting went ok too
+		if (texture == nullptr)
+			logSDLError(std::cout, "CreateTextureFromSurface");
 	}
 	else
-		std::cout << SDL_GetError() << std::endl;
+		logSDLError(std::cout, "LoadBMP");
 
 	return texture;
 }
@@ -48,7 +55,7 @@ SDL_Texture* LoadImage(std::string file){
 *  @param tex the source texture we want to draw
 *  @param rend the renderer we want to draw too
 */
-void ApplySurface(int x, int y, SDL_Texture *tex, SDL_Renderer *rend){
+void renderTexture(int x, int y, SDL_Texture *tex, SDL_Renderer *rend){
 	//First we must create an SDL_Rect for the position of the image, as SDL
 	//won't accept raw coordinates as the image's position
 	SDL_Rect pos;
@@ -62,26 +69,26 @@ void ApplySurface(int x, int y, SDL_Texture *tex, SDL_Renderer *rend){
 int main(int argc, char** argv){
 	//Start up SDL and make sure it went ok
 	if (SDL_Init(SDL_INIT_EVERYTHING) != 0){
-		std::cout << SDL_GetError() << std::endl;
+		logSDLError(std::cout, "SDL_Init");
 		return 1;
 	}
 
 	//Setup our window and renderer
 	window = SDL_CreateWindow("Lesson 2", 100, 100, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
 	if (window == nullptr){
-		std::cout << SDL_GetError() << std::endl;
+		logSDLError(std::cout, "CreateWindow");
 		return 2;
 	}
 	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 	if (renderer == nullptr){
-		std::cout << SDL_GetError() << std::endl;
+		logSDLError(std::cout, "CreateRenderer");
 		return 3;
 	}
 
 	//The textures we'll be using
 	SDL_Texture *background = nullptr, *image = nullptr;
-	background = LoadImage("../res/Lesson2/background.bmp");
-	image = LoadImage("../res/Lesson2/image.bmp");
+	background = loadTexture("../res/Lesson2/background.bmp");
+	image = loadTexture("../res/Lesson2/image.bmp");
 	//Make sure it went ok
 	if (background == nullptr || image == nullptr)
 		return 4;
@@ -94,17 +101,17 @@ int main(int argc, char** argv){
 	int bW, bH;
 	SDL_QueryTexture(background, NULL, NULL, &bW, &bH);
 	//We want to tile our background so draw it 4 times
-	ApplySurface(0, 0, background, renderer);
-	ApplySurface(bW, 0, background, renderer);
-	ApplySurface(0, bH, background, renderer);
-	ApplySurface(bW, bH, background, renderer);
+	renderTexture(0, 0, background, renderer);
+	renderTexture(bW, 0, background, renderer);
+	renderTexture(0, bH, background, renderer);
+	renderTexture(bW, bH, background, renderer);
 	//Draw our image in the center of the window
 	//We also need its width so query it as well
 	int iW, iH;
 	SDL_QueryTexture(image, NULL, NULL, &iW, &iH);
 	int x = SCREEN_WIDTH / 2 - iW / 2;
 	int y = SCREEN_HEIGHT / 2 - iH / 2;
-	ApplySurface(x, y, image, renderer);
+	renderTexture(x, y, image, renderer);
 
 	//Update the screen
 	SDL_RenderPresent(renderer);
