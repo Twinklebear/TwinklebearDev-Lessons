@@ -11,7 +11,7 @@
 int main(int argc, char** argv){
 	//First we need to start up SDL, and make sure it went ok
 	if (SDL_Init(SDL_INIT_EVERYTHING) != 0){
-		std::cout << SDL_GetError() << std::endl;
+		std::cout << "SDL_Init Error: " << SDL_GetError() << std::endl;
 		return 1;
 	}
 	
@@ -19,7 +19,7 @@ int main(int argc, char** argv){
 	SDL_Window *win = SDL_CreateWindow("Hello World!", 100, 100, 640, 480, SDL_WINDOW_SHOWN);
 	//Make sure creating our window went ok
 	if (win == nullptr){
-		std::cout << SDL_GetError() << std::endl;
+		std::cout << "SDL_CreateWindow Error: " << SDL_GetError() << std::endl;
 		return 1;
 	}
 
@@ -30,7 +30,7 @@ int main(int argc, char** argv){
 	//synchornized with the monitor's refresh rate
 	SDL_Renderer *ren = SDL_CreateRenderer(win, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 	if (ren == nullptr){
-		std::cout << SDL_GetError() << std::endl;
+		std::cout << "SDL_CreateRenderer Error: " << SDL_GetError() << std::endl;
 		return 1;
 	}
 
@@ -38,13 +38,17 @@ int main(int argc, char** argv){
 	//this lets us choose when to upload or remove textures from the GPU
 	SDL_Surface *bmp = SDL_LoadBMP("../res/Lesson1/hello.bmp");
 	if (bmp == nullptr){
-		std::cout << SDL_GetError() << std::endl;
+		std::cout << "SDL_LoadBMP Error: " << SDL_GetError() << std::endl;
 		return 1;
 	}
 
 	//To use a hardware accelerated texture for rendering we can create one from
 	//the surface we loaded
 	SDL_Texture *tex = SDL_CreateTextureFromSurface(ren, bmp);
+	if (tex == nullptr){
+		std::cout << "SDL_CreateTextureFromSurface Error: " << SDL_GetError() << std::endl;
+		return 1;
+	}
 	//We no longer need the surface
 	SDL_FreeSurface(bmp);
 
