@@ -10,7 +10,7 @@
 */
 int main(int argc, char** argv){
 	//First we need to start up SDL, and make sure it went ok
-	if (SDL_Init(SDL_INIT_EVERYTHING) == -1){
+	if (SDL_Init(SDL_INIT_EVERYTHING) != 0){
 		std::cout << SDL_GetError() << std::endl;
 		return 1;
 	}

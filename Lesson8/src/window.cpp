@@ -32,7 +32,7 @@ Window::~Window(){
 }
 void Window::Init(std::string title){
     //initialize all SDL subsystems
-    if (SDL_Init(SDL_INIT_EVERYTHING) == -1)
+    if (SDL_Init(SDL_INIT_EVERYTHING) != 0)
 		throw std::runtime_error("SDL Init Failed");
     if (TTF_Init() == -1)
 		throw std::runtime_error("TTF Init Failed");

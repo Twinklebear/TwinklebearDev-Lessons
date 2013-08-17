@@ -84,7 +84,7 @@ void ApplySurface(int x, int y, SDL_Texture *tex, SDL_Renderer *rend){
 
 int main(int argc, char** argv){
 	//Start up SDL and make sure it went ok
-	if (SDL_Init(SDL_INIT_EVERYTHING) == -1){
+	if (SDL_Init(SDL_INIT_EVERYTHING) != 0){
 		std::cout << SDL_GetError() << std::endl;
 		return 1;
 	}
