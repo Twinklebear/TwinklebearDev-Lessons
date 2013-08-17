@@ -13,7 +13,7 @@ SOURCES = $(wildcard $(SRC)/*.cpp)
 OBJS = $(addprefix $(BUILD)/, $(notdir $(SOURCES:.cpp=.o)))
 # Executables will be written to top level of repo under out/
 OUT = ../out
-EXE = $(OUT)/Lesson6
+EXE = $(OUT)/Lesson7
 
 all: $(EXE)
 
