@@ -45,11 +45,12 @@ SDL_Texture* loadTexture(const std::string &file, SDL_Renderer *ren){
 	return texture;
 }
 /*
-*  Draw an SDL_Texture to an SDL_Renderer at position x, y
-*  @param x The x coordinate to draw too
-*  @param y The y coordinate to draw too
-*  @param tex The source texture we want to draw
-*  @param rend The renderer we want to draw too
+* Draw an SDL_Texture to an SDL_Renderer at position x, y, preserving
+* the texture's width and height
+* @param x The x coordinate to draw too
+* @param y The y coordinate to draw too
+* @param tex The source texture we want to draw
+* @param rend The renderer we want to draw too
 */
 void renderTexture(int x, int y, SDL_Texture *tex, SDL_Renderer *rend){
 	//First we must create an SDL_Rect for the position of the image, as SDL
