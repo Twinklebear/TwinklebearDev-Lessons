@@ -5,8 +5,8 @@
 #include <SDL2/SDL.h>
 #endif
 
-/*
-*  Lesson 1: Hello World!
+/**
+* Lesson 1: Hello World!
 */
 int main(int argc, char** argv){
 	//First we need to start up SDL, and make sure it went ok
