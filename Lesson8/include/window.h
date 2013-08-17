@@ -4,7 +4,14 @@
 #include <string>
 #include <stdexcept>
 #include <memory>
+
+#if defined(_MSC_VER)
 #include <SDL.h>
+#elif defined(__clang__)
+#include <SDL2/SDL.h>
+#else
+#include <SDL2/SDL.h>
+#endif
 
 /**
 *  Window management class, provides a simple wrapper around

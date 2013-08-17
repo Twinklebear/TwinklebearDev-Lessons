@@ -26,10 +26,10 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\timer.h">
+    <ClInclude Include="include\timer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\window.h">
+    <ClInclude Include="include\window.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

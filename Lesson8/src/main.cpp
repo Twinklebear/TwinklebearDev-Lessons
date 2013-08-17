@@ -1,10 +1,18 @@
-#include <SDL.h>
 #include <stdexcept>
 #include <string>
 #include <sstream>
 #include <iostream>
-#include "window.h"
-#include "timer.h"
+
+#if defined(_MSC_VER)
+#include <SDL.h>
+#elif defined(__clang__)
+#include <SDL2/SDL.h>
+#else
+#include <SDL2/SDL.h>
+#endif
+
+#include "../include/window.h"
+#include "../include/timer.h"
 
 int main(int argc, char** argv){
     //Start our window

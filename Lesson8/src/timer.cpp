@@ -1,5 +1,12 @@
+#include "../include/timer.h"
+
+#if defined(_MSC_VER)
 #include <SDL.h>
-#include "timer.h"
+#elif defined(__clang__)
+#include <SDL2/SDL.h>
+#else
+#include <SDL2/SDL.h>
+#endif
 
 Timer::Timer()
     : mStartTicks(0), mPausedTicks(0), mStarted(false), mPaused(false)
