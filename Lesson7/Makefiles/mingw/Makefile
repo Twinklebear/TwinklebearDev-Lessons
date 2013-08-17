@@ -20,7 +20,7 @@ EXE = $(OUT)\Lesson7.exe
 
 all: $(EXE) | copy_dlls
 
-$(EXE): $(OBJS)
+$(EXE): $(OBJS) | $(OUT)
 	$(CXX) $(OBJS) $(LDFLAGS) -o $@
 
 $(BUILD)/%.o: $(SRC)/%.cpp | $(BUILD)
