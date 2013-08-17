@@ -1,3 +1,6 @@
+# Ignore the makefile being used to build, only track the ones under Makefiles/
+Lesson*/Makefile
+
 # Compiled Object files
 *.slo
 *.lo

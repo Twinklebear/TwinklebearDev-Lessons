@@ -1,9 +1,22 @@
-#include <SDL.h>
-#include <SDL_image.h>
-#include <SDL_ttf.h>
 #include <stdexcept>
 #include <string>
 #include <iostream>
+
+#if defined(_MSC_VER)
+#include <SDL.h>
+#include <SDL_image.h>
+#include <SDL_ttf.h>
+#elif defined(__clang__)
+#include <SDL2/SDL.h>
+#include <SDL2_image/SDL_image.h>
+//A guess at where the file will be, TODO: check
+#include <SDL2_ttf/SDL_ttf.h>
+#else
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
+//A guess at where the file will be, TODO: check
+#include <SDL2/SDL_ttf.h>
+#endif
 
 /*
 *  Lesson 6: True Type Fonts with SDL_ttf
