@@ -1,10 +1,22 @@
 #include <string>
 #include <stdexcept>
 #include <memory>
+
+#if defined(_MSC_VER)
 #include <SDL.h>
 #include <SDL_image.h>
 #include <SDL_ttf.h>
-#include "window.h"
+#elif defined(__clang__)
+#include <SDL2/SDL.h>
+#include <SDL2_image/SDL_image.h>
+#include <SDL2_ttf/SDL_ttf.h>
+#else
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
+#include <SDL2/SDL_ttf.h>
+#endif
+
+#include "../include/window.h"
 
 //Initialize the unique_ptr's deleters here
 std::unique_ptr<SDL_Window, void (*)(SDL_Window*)> Window::mWindow 

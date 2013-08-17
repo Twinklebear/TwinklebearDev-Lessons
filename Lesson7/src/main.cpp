@@ -1,8 +1,16 @@
-#include <SDL.h>
 #include <stdexcept>
 #include <string>
 #include <iostream>
-#include "window.h"
+
+#if defined(_MSC_VER)
+#include <SDL.h>
+#elif defined(__clang__)
+#include <SDL2/SDL.h>
+#else
+#include <SDL2/SDL.h>
+#endif
+
+#include "../include/window.h"
 
 /*
 *  Lesson 7: Taking advantage of classes
