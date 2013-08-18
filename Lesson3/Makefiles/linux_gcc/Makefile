@@ -1,6 +1,8 @@
 CXX = g++
 # Set the SDLLIB and SDLINCLUDE paths to your install location of SDL
-SDLLIB = -L/usr/local/lib -lSDL2 -lSDL2_image
+# You may also need to update the linker option rpath, which sets where to look for
+# the SDL2 libraries at runtime to match your install
+SDLLIB = -L/usr/local/lib -lSDL2 -lSDL2_image -Wl,-rpath=/usr/local/lib
 SDLINCLUDE = -I/usr/local/include
 # If your compiler is a bit old you may need to use -std=c++0x instead of -std=c++11
 CFLAGS = -Wall -c -std=c++0x $(SDLINCLUDE)
@@ -15,7 +17,7 @@ EXE = $(OUT)/Lesson3
 all: $(EXE)
 
 $(EXE): $(BUILD)/main.o | $(OUT)
-	$(CXX) $(LDFLAGS) $< -o $@
+	$(CXX) $< $(LDFLAGS) -o $@
 
 $(BUILD)/main.o: $(SRC)/main.cpp | $(BUILD)
 	$(CXX) $(CFLAGS) $< -o $@
