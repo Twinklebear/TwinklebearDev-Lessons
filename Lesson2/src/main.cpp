@@ -53,14 +53,13 @@ SDL_Texture* loadTexture(const std::string &file, SDL_Renderer *ren){
 * @param rend The renderer we want to draw too
 */
 void renderTexture(int x, int y, SDL_Texture *tex, SDL_Renderer *rend){
-	//First we must create an SDL_Rect for the position of the image, as SDL
-	//won't accept raw coordinates as the image's position
-	SDL_Rect pos;
-	pos.x = x;
-	pos.y = y;
-	//We also need to query the texture to get its width and height to use
-	SDL_QueryTexture(tex, NULL, NULL, &pos.w, &pos.h);
-	SDL_RenderCopy(rend, tex, NULL, &pos);
+	//Setup the destination rectangle to be at the position we want
+	SDL_Rect dst;
+	dst.x = x;
+	dst.y = y;
+	//Query the texture to get its width and height to use
+	SDL_QueryTexture(tex, NULL, NULL, &dst.w, &dst.h);
+	SDL_RenderCopy(rend, tex, NULL, &dst);
 }
 
 int main(int argc, char** argv){
@@ -76,7 +75,6 @@ int main(int argc, char** argv){
 		logSDLError(std::cout, "CreateWindow");
 		return 2;
 	}
-	
 	SDL_Renderer *renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 	if (renderer == nullptr){
 		logSDLError(std::cout, "CreateRenderer");
@@ -86,7 +84,7 @@ int main(int argc, char** argv){
 	//The textures we'll be using
 	SDL_Texture *background = loadTexture("../res/Lesson2/background.bmp", renderer);
 	SDL_Texture *image = loadTexture("../res/Lesson2/image.bmp", renderer);
-	//Make sure it went ok
+	//Make sure they both loaded ok
 	if (background == nullptr || image == nullptr)
 		return 4;
 
@@ -104,7 +102,8 @@ int main(int argc, char** argv){
 	renderTexture(bW, bH, background, renderer);
 
 	//Draw our image in the center of the window
-	//We also need its width so query it as well
+	//We need the foreground image's width to properly compute the position
+	//of it's top left corner so that the image will be centered
 	int iW, iH;
 	SDL_QueryTexture(image, NULL, NULL, &iW, &iH);
 	int x = SCREEN_WIDTH / 2 - iW / 2;
