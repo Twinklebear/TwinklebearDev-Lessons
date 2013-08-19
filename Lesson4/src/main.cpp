@@ -14,7 +14,7 @@
 #endif
 
 /*
-* Lesson 4: Event Driven Programming
+* Lesson 4: Handling Events
 */
 //Screen attributes
 const int SCREEN_WIDTH  = 640;

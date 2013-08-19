@@ -52,14 +52,14 @@ SDL_Texture* loadTexture(const std::string &file, SDL_Renderer *ren){
 * @param x The x coordinate to draw too
 * @param y The y coordinate to draw too
 */
-void renderTexture(SDL_Texture *tex, SDL_Renderer *rend, int x, int y){
+void renderTexture(SDL_Texture *tex, SDL_Renderer *ren, int x, int y){
 	//Setup the destination rectangle to be at the position we want
 	SDL_Rect dst;
 	dst.x = x;
 	dst.y = y;
 	//Query the texture to get its width and height to use
 	SDL_QueryTexture(tex, NULL, NULL, &dst.w, &dst.h);
-	SDL_RenderCopy(rend, tex, NULL, &dst);
+	SDL_RenderCopy(ren, tex, NULL, &dst);
 }
 
 int main(int argc, char** argv){
