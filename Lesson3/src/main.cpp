@@ -13,7 +13,7 @@
 #endif
 
 /*
-*  Lesson 3: SDL Extension Libraries
+* Lesson 3: SDL Extension Libraries
 */
 //Screen attributes
 const int SCREEN_WIDTH  = 640;
@@ -42,30 +42,38 @@ SDL_Texture* loadTexture(const std::string &file, SDL_Renderer *ren){
 	return texture;
 }
 /**
-* Draw an SDL_Texture to an SDL_Renderer at position x, y, preserving
-* the texture's width and height
+* Draw an SDL_Texture to an SDL_Renderer at position x, y, with some desired
+* width and height
 * @param tex The source texture we want to draw
 * @param rend The renderer we want to draw too
 * @param x The x coordinate to draw too
 * @param y The y coordinate to draw too
-* @param w The width of the texture to draw, default of -1 specifies to use texture width
-* @param h The height of the texture to draw, default of -1 specifies to use texture height
+* @param w The width of the texture to draw
+* @param h The height of the texture to draw
 */
-void renderTexture(SDL_Texture *tex, SDL_Renderer *rend, int x, int y, int w = -1, int h = -1){
+void renderTexture(SDL_Texture *tex, SDL_Renderer *ren, int x, int y, int w, int h){
 	//Setup the destination rectangle to be at the position we want
 	SDL_Rect dst;
 	dst.x = x;
 	dst.y = y;
 	dst.w = w;
 	dst.h = h;
-	//Set w/h as appropriate based on input
-	if (dst.w == -1)
-		SDL_QueryTexture(tex, NULL, NULL, &dst.w, &dst.h);
-	else if (dst.h == -1)
-		SDL_QueryTexture(tex, NULL, NULL, NULL, &dst.h);
-
-	SDL_RenderCopy(rend, tex, NULL, &dst);
+	SDL_RenderCopy(ren, tex, NULL, &dst);
 }
+/**
+* Draw an SDL_Texture to an SDL_Renderer at position x, y, preserving
+* the texture's width and height
+* @param tex The source texture we want to draw
+* @param rend The renderer we want to draw too
+* @param x The x coordinate to draw too
+* @param y The y coordinate to draw too
+*/
+void renderTexture(SDL_Texture *tex, SDL_Renderer *ren, int x, int y){
+	int w, h;
+	SDL_QueryTexture(tex, NULL, NULL, &w, &h);
+	renderTexture(tex, ren, x, y, w, h);
+}
+
 
 int main(int argc, char** argv){
 	//Start up SDL and make sure it went ok
