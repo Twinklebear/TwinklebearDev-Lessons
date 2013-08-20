@@ -17,7 +17,7 @@ EXE = $(OUT)\Lesson6.exe
 
 all: $(EXE) | copy_dlls
 
-$(EXE): $(BUILD)\main.o
+$(EXE): $(BUILD)\main.o | $(OUT)
 	$(CXX) $< $(LDFLAGS) -o $@
 
 $(BUILD)\main.o: $(SRC)\main.cpp | $(BUILD)
