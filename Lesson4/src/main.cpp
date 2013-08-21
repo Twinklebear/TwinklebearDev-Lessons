@@ -1,4 +1,3 @@
-#include <stdexcept>
 #include <string>
 #include <iostream>
 
@@ -80,8 +79,10 @@ int main(int argc, char** argv){
 		return 1;
 	}
 
-	//Setup our window and renderer
-	SDL_Window *window = SDL_CreateWindow("Lesson 3", 100, 100, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
+	//Setup our window and renderer, this time let's put our window in the center 
+	//of the screen
+	SDL_Window *window = SDL_CreateWindow("Lesson 4", SDL_WINDOWPOS_CENTERED, 
+		SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
 	if (window == nullptr){
 		logSDLError(std::cout, "CreateWindow");
 		return 2;
