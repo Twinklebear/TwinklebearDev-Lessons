@@ -14,7 +14,7 @@ Source code and assets for the TwinklebearDev SDL 2.0 Lessons
 #### Lesson 3: SDL Extension Libraries
 - An introduction to the various extension libraries that are available for SDL in this lesson we cover usage of SDL_image to load non-BMP images
 
-#### Lesson 4: Event Driven Programming
+#### Lesson 4: Handling Events
 - An introduction to using SDL's event system to get user input from the window, mouse and keyboard
 
 #### Lesson 5: Clipping Sprite Sheets
