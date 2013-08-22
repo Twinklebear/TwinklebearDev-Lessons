@@ -1,4 +1,3 @@
-#include <stdexcept>
 #include <string>
 #include <iostream>
 
@@ -12,91 +11,104 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #endif
+
 /*
-*  Lesson 5: Clipping Sprite Sheets
+* Lesson 5: Clipping Sprite Sheets
 */
 //Screen attributes
 const int SCREEN_WIDTH  = 640;
 const int SCREEN_HEIGHT = 480;
-//Globals for window and renderer
-SDL_Renderer *renderer = nullptr;
-SDL_Window *window = nullptr;
 
 /**
-*  Loads an image directly to texture using SDL_image's
-*  built in function IMG_LoadTexture
-*  @param file The image file to load
-*  @return SDL_Texture* to the loaded texture
+* Log an SDL error with some error message to the output stream of our choice
+* @param os The output stream to write the message too
+* @param msg The error message to write, format will be msg error: SDL_GetError()
 */
-SDL_Texture* LoadImage(std::string file){
-	SDL_Texture* tex = nullptr;
-	tex = IMG_LoadTexture(renderer, file.c_str());
-	if (tex == nullptr)
-		throw std::runtime_error("Failed to load image: " + file + IMG_GetError());
-	return tex;
+void logSDLError(std::ostream &os, const std::string &msg){
+	os << msg << " error: " << SDL_GetError() << std::endl;
 }
 /**
-*  Draw an SDL_Texture to an SDL_Renderer at position x, y
-*  @param x The x coordinate to draw too
-*  @param y The y coordinate to draw too
-*  @param tex The source texture we want to draw
-*  @param rend The renderer we want to draw too
-*  @param clip The clip to take from the texture, NULL is default
+* Loads an image into a texture on the rendering device
+* @param file The image file to load
+* @param ren The renderer to load the texture onto
+* @return the loaded texture, or nullptr if something went wrong.
 */
-void ApplySurface(int x, int y, SDL_Texture *tex, SDL_Renderer *rend, SDL_Rect *clip = NULL){
-	//First we must create an SDL_Rect for the position of the image, as SDL
-	//won't accept raw coordinates as the image's position
-	SDL_Rect pos;
-	pos.x = x;
-	pos.y = y;
-	//Detect if we should use clip width settings or texture width
-	if (clip != NULL){
-		pos.w = clip->w;
-		pos.h = clip->h;
+SDL_Texture* loadTexture(const std::string &file, SDL_Renderer *ren){
+	SDL_Texture *texture = IMG_LoadTexture(ren, file.c_str());
+	if (texture == nullptr)		
+		logSDLError(std::cout, "LoadTexture");
+	return texture;
+}
+/**
+* Draw an SDL_Texture to an SDL_Renderer at some destination rect
+* taking a clip of the texture if desired
+* @param tex The source texture we want to draw
+* @param rend The renderer we want to draw too
+* @param dst The destination rectangle to render the texture too
+* @param clip The sub-section of the texture to draw (clipping rect)
+*		default of nullptr draws the entire texture
+*/
+void renderTexture(SDL_Texture *tex, SDL_Renderer *ren, SDL_Rect dst, SDL_Rect *clip = nullptr){
+	SDL_RenderCopy(ren, tex, clip, &dst);
+}
+/**
+* Draw an SDL_Texture to an SDL_Renderer at position x, y, preserving
+* the texture's width and height and taking a clip of the texture if desired
+* If a clip is passed, the clip's width and height will be used instead of the texture's
+* @param tex The source texture we want to draw
+* @param rend The renderer we want to draw too
+* @param x The x coordinate to draw too
+* @param y The y coordinate to draw too
+* @param clip The sub-section of the texture to draw (clipping rect)
+*		default of nullptr draws the entire texture
+*/
+void renderTexture(SDL_Texture *tex, SDL_Renderer *ren, int x, int y, SDL_Rect *clip = nullptr){
+	SDL_Rect dst;
+	dst.x = x;
+	dst.y = y;
+	if (clip != nullptr){
+		dst.w = clip->w;
+		dst.h = clip->h;
 	}
-	else {
-		SDL_QueryTexture(tex, NULL, NULL, &pos.w, &pos.h);
-	}
-	SDL_RenderCopy(rend, tex, clip, &pos);
+	else
+		SDL_QueryTexture(tex, NULL, NULL, &dst.w, &dst.h);
+
+	renderTexture(tex, ren, dst, clip);
 }
 
 int main(int argc, char** argv){
 	//Start up SDL and make sure it went ok
 	if (SDL_Init(SDL_INIT_EVERYTHING) != 0){
-		std::cout << SDL_GetError() << std::endl;
+		logSDLError(std::cout, "SDL_Init");
 		return 1;
 	}
 
 	//Setup our window and renderer
-	window = SDL_CreateWindow("Lesson 5", SDL_WINDOWPOS_CENTERED, 
+	SDL_Window *window = SDL_CreateWindow("Lesson 5", SDL_WINDOWPOS_CENTERED, 
 		SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
 	if (window == nullptr){
-		std::cout << SDL_GetError() << std::endl;
+		logSDLError(std::cout, "CreateWindow");
 		return 2;
 	}
-	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED 
-		| SDL_RENDERER_PRESENTVSYNC);
+	SDL_Renderer *renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 	if (renderer == nullptr){
-		std::cout << SDL_GetError() << std::endl;
+		logSDLError(std::cout, "CreateRenderer");
 		return 3;
 	}
-	
-	SDL_Texture *image = nullptr;
-	try {
-		image = LoadImage("../res/Lesson5/image.png");
-	}
-	catch (const std::runtime_error &e){
-		std::cout << e.what() << std::endl;
+	SDL_Texture *image = loadTexture("../res/Lesson5/image.png", renderer);
+	if (image == nullptr)
 		return 4;
-	}
-	//Setup image positioning
+
+	//iW and iH are the clip width and height
+	//We'll be drawing only clips so get a center position for the w/h of a clip
 	int iW = 100, iH = 100;
 	int x = SCREEN_WIDTH / 2 - iW / 2;
 	int y = SCREEN_HEIGHT / 2 - iH / 2;
-	//Setup the clips
-	//iW and iH are the desired clip width and height
+
+	//Setup the clips for our image
 	SDL_Rect clips[4];
-	//We use a for loop this time to setup our clips
+	//Since our clips our uniform in size we can generate a list of their
+	//positions using some math (the specifics of this are covered in the lesson)
 	int column = 0;
 	for (int i = 0; i < 4; ++i){
 		if (i != 0 && i % 2 == 0)
@@ -110,9 +122,7 @@ int main(int argc, char** argv){
 	//Specify a default clip to start with
 	int useClip = 0;
 
-	//Our event type
 	SDL_Event e;
-	//For tracking if we want to quit
 	bool quit = false;
 	while (!quit){
 		//Event Polling
@@ -120,7 +130,7 @@ int main(int argc, char** argv){
 			//If user closes he window
 			if (e.type == SDL_QUIT)
 				quit = true;
-			//If user presses any key
+			//Use number input to select which clip should be drawn
 			if (e.type == SDL_KEYDOWN){
 				switch (e.key.keysym.sym){
 					case SDLK_1:
@@ -135,7 +145,6 @@ int main(int argc, char** argv){
 					case SDLK_4:
 						useClip = 3;
 						break;
-					//For quitting, escape key
 					case SDLK_ESCAPE:
 						quit = true;
 						break;
@@ -147,17 +156,16 @@ int main(int argc, char** argv){
 		//Rendering
 		SDL_RenderClear(renderer);
 		//Draw the image
-		ApplySurface(x, y, image, renderer, &clips[useClip]);
-
+		renderTexture(image, renderer, x, y, &clips[useClip]);
 		//Update the screen
 		SDL_RenderPresent(renderer);
 	}
-
-	//Destroy the various items
+	//Clean up
 	SDL_DestroyTexture(image);
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);
 
+	IMG_Quit();
 	SDL_Quit();
 
 	return 0;

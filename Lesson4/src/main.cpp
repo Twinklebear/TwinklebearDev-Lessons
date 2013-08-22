@@ -112,7 +112,7 @@ int main(int argc, char** argv){
 	while (!quit){
 		//Read any events that occured, for now we'll just quit if any event occurs
 		while (SDL_PollEvent(&e)){
-			//If user closes he window
+			//If user closes the window
 			if (e.type == SDL_QUIT)
 				quit = true;
 			//If user presses any key
