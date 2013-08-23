@@ -1,6 +1,6 @@
 CXX = clang++
 SDL = -framework SDL2 -framework SDL2_image -framework SDL2_ttf
-CFLAGS = -Wall -c -std=c++11 -stdlib=libc++
+CXXFLAGS = -Wall -c -std=c++11 -stdlib=libc++
 LDFLAGS = -stdlib=libc++ $(SDL)
 # The source and build output directories
 SRC = src
@@ -18,7 +18,7 @@ $(EXE): $(OBJS) | $(OUT)
 	$(CXX) $(LDFLAGS) $(OBJS) -o $@
 
 $(BUILD)/%.o: $(SRC)/%.cpp | $(BUILD)
-	$(CXX) $(CFLAGS) $< -o $@
+	$(CXX) $(CXXFLAGS) $< -o $@
 
 # Make sure the build directory exists
 $(BUILD):

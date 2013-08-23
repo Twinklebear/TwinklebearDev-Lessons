@@ -1,12 +1,12 @@
 CXX = g++
-# Set the SDLLIB and SDLINCLUDE paths to your install location of SDL
+# Set the SDL_LIB and SDL_INCLUDE paths to your install location of SDL
 # You may also need to update the linker option rpath, which sets where to look for
 # the SDL2 libraries at runtime to match your install
-SDLLIB = -L/usr/local/lib -lSDL2 -lSDL2_image -lSDL2_ttf -Wl,-rpath=/usr/local/lib
-SDLINCLUDE = -I/usr/local/include
+SDL_LIB = -L/usr/local/lib -lSDL2 -lSDL2_image -lSDL2_ttf -Wl,-rpath=/usr/local/lib
+SDL_INCLUDE = -I/usr/local/include
 # If your compiler is a bit old you may need to use -std=c++0x instead of -std=c++11
-CFLAGS = -Wall -c -std=c++0x $(SDLINCLUDE)
-LDFLAGS = $(SDLLIB)
+CXXFLAGS = -Wall -c -std=c++0x $(SDL_INCLUDE)
+LDFLAGS = $(SDL_LIB)
 # The source code and build output directories
 SRC = src
 BUILD = build
@@ -23,7 +23,7 @@ $(EXE): $(OBJS) | $(OUT)
 	$(CXX) $(OBJS) $(LDFLAGS) -o $@
 
 $(BUILD)/%.o: $(SRC)/%.cpp | $(BUILD)
-	$(CXX) $(CFLAGS) $< -o $@
+	$(CXX) $(CXXFLAGS) $< -o $@
 
 # Make sure the build directory exists
 $(BUILD):
