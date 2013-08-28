@@ -123,7 +123,6 @@ int main(int argc, char** argv){
 	while (!quit){
 		//Event Polling
 		while (SDL_PollEvent(&e)){
-			//If user closes he window
 			if (e.type == SDL_QUIT)
 				quit = true;
 			//Use number input to select which clip should be drawn
