@@ -109,12 +109,8 @@ int main(int argc, char** argv){
 	SDL_Rect clips[4];
 	//Since our clips our uniform in size we can generate a list of their
 	//positions using some math (the specifics of this are covered in the lesson)
-	int column = 0;
 	for (int i = 0; i < 4; ++i){
-		if (i != 0 && i % 2 == 0)
-			++column;
-		
-		clips[i].x = column * iW;
+		clips[i].x = i / 2 * iW;
 		clips[i].y = i % 2 * iH;
 		clips[i].w = iW;
 		clips[i].h = iH;
