@@ -100,15 +100,14 @@ SDL_Texture* renderText(std::string message, std::string fontFile, SDL_Color col
 	//load that surface into a texture
 	SDL_Surface *surf = TTF_RenderText_Blended(font, message.c_str(), color);
 	if (surf == nullptr){
+		TTF_CloseFont(font);
 		logSDLError(std::cout, "TTF_RenderText");
 		return nullptr;
 	}
 	SDL_Texture *texture = SDL_CreateTextureFromSurface(renderer, surf);
 	if (texture == nullptr){
-		SDL_FreeSurface(surf);
 		logSDLError(std::cout, "CreateTexture");
 	}
-
 	//Clean up the surface and font
 	SDL_FreeSurface(surf);
 	TTF_CloseFont(font);
