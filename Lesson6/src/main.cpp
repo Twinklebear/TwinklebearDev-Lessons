@@ -143,6 +143,9 @@ int main(int argc, char** argv){
 	//Color is in RGB format
 	SDL_Color color = { 255, 255, 255 };
 	SDL_Texture *image = renderText("TTF fonts are cool!", "../res/Lesson6/sample.ttf", color, 64, renderer);
+	if (image == nullptr){
+		return 1;
+	}
 
 	//Get the texture w/h so we can center it in the screen
 	int iW, iH;
