@@ -87,7 +87,7 @@ void renderTexture(SDL_Texture *tex, SDL_Renderer *ren, int x, int y, SDL_Rect *
 * @param renderer The renderer to load the texture in
 * @return An SDL_Texture containing the rendered message, or nullptr if something went wrong
 */
-SDL_Texture* renderText(std::string message, std::string fontFile, SDL_Color color,
+SDL_Texture* renderText(const std::string &message, const std::string &fontFile, SDL_Color color,
 	int fontSize, SDL_Renderer *renderer)
 {
 	//Open the font
