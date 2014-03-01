@@ -4,6 +4,7 @@
 *.o
 *.dll
 build/
+bin/
 
 # Swap files
 *.swp
