@@ -56,6 +56,9 @@
 # module with the minor edit of changing "SDL" to "SDL2" where necessary. This
 # was not created for redistribution, and exists temporarily pending official
 # SDL2 CMake modules.
+#
+# Note that on windows this will only search for the 32bit libraries, to search
+# for 64bit change x86/i686-w64 to x64/x86_64-w64
 
 #=============================================================================
 # Copyright 2003-2009 Kitware, Inc.
@@ -105,7 +108,6 @@ FIND_PATH(SDL2_INCLUDE_DIR SDL.h
 	$ENV{SDL2}
 	PATH_SUFFIXES include/SDL2 include SDL2
 	i686-w64-mingw32/include/SDL2
-	x86_64-w64-mingw32/include/SDL2
 	PATHS
 	~/Library/Frameworks
 	/Library/Frameworks
@@ -121,9 +123,8 @@ FIND_LIBRARY(SDL2_LIBRARY_TEMP SDL2
 	HINTS
 	$ENV{SDL2}
 	PATH_SUFFIXES lib64 lib
-	lib/x86 lib/x64
+	lib/x86
 	i686-w64-mingw32/lib
-	x86_64-w64-mingw32/lib
 	PATHS
 	/sw
 	/opt/local
@@ -142,9 +143,8 @@ IF(NOT SDL2_BUILDING_LIBRARY)
 			HINTS
 			$ENV{SDL2}
 			PATH_SUFFIXES lib64 lib
-			lib/x86 lib/x64
+			lib/x86
 			i686-w64-mingw32/lib
-			x86_64-w64-mingw32/lib
 			PATHS
 			/sw
 			/opt/local
