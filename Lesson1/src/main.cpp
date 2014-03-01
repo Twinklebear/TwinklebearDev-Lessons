@@ -1,11 +1,11 @@
 #include <iostream>
 #include <SDL.h>
 #include "asset.h"
-#undef main
 
 /*
  * Lesson 1: Hello World!
  */
+#undef main
 int main(int argc, char** argv){
 	//First we need to start up SDL, and make sure it went ok
 	if (SDL_Init(SDL_INIT_EVERYTHING) != 0){

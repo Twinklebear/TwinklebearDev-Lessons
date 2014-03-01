@@ -1,11 +1,11 @@
 #include <iostream>
 #include <SDL.h>
 #include "asset.h"
-#undef main
 
 /*
  * Lesson 0: Test to make sure SDL is setup properly
  */
+#undef main
 int main(int argc, char **argv){
 	if (SDL_Init(SDL_INIT_EVERYTHING) != 0){
 		std::cout << "SDL_Init Error: " << SDL_GetError() << std::endl;

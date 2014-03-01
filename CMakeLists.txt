@@ -8,6 +8,8 @@ set(BIN_DIR ${TwinklebearDevLessons_SOURCE_DIR}/bin)
 # Setup our asset location path
 set(ASSET_PATH ${TwinklebearDevLessons_SOURCE_DIR}/res/)
 configure_file(asset.h.in asset.h)
+# to find our asset header
+include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
 # Bump up warning levels appropriately for clang, gcc & msvc and build in debug mode
 if (${CMAKE_CXX_COMPILER_ID} STREQUAL "GNU" OR ${CMAKE_CXX_COMPILER_ID} STREQUAL "Clang")
@@ -24,7 +26,7 @@ endif()
 find_package(SDL2 REQUIRED)
 
 include_directories(${SDL2_INCLUDE_DIR})
-include_directories(${CMAKE_CURRENT_BINARY_DIR})
 add_subdirectory(Lesson0)
 add_subdirectory(Lesson1)
+add_subdirectory(Lesson2)
 
