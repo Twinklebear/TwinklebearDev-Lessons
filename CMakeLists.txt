@@ -24,9 +24,12 @@ elseif (${CMAKE_CXX_COMPILER_ID} STREQUAL "MSVC")
 endif()
 
 find_package(SDL2 REQUIRED)
+find_package(SDL2_IMAGE REQUIRED)
 
 include_directories(${SDL2_INCLUDE_DIR})
+include_directories(${SDL2_IMAGE_INCLUDE_DIR})
 add_subdirectory(Lesson0)
 add_subdirectory(Lesson1)
 add_subdirectory(Lesson2)
+add_subdirectory(Lesson3)
 
