@@ -94,6 +94,7 @@ FIND_PATH(SDL2_IMAGE_INCLUDE_DIR SDL_image.h
 	$ENV{SDL2_IMAGE}
 	PATH_SUFFIXES include/SDL2 include SDL2
 	i686-w64-mingw32/include/SDL2
+	x86_64-w64-mingw32/include/SDL2
 	PATHS
 	~/Library/Frameworks
 	/Library/Frameworks
@@ -105,20 +106,39 @@ FIND_PATH(SDL2_IMAGE_INCLUDE_DIR SDL_image.h
 	/opt
 )
 
-FIND_LIBRARY(SDL2_IMAGE_LIBRARY_TEMP
-	NAMES SDL2_image
-	HINTS
-	$ENV{SDL2}
-	$ENV{SDL2_IMAGE}
-	PATH_SUFFIXES lib64 lib
-	lib/x86
-	i686-w64-mingw32/lib
-	PATHS
-	/sw
-	/opt/local
-	/opt/csw
-	/opt
-)
+# Lookup the 64 bit libs on x64
+IF(CMAKE_SIZEOF_VOID_P EQUAL 8)
+	FIND_LIBRARY(SDL2_IMAGE_LIBRARY_TEMP
+		NAMES SDL2_image
+		HINTS
+		$ENV{SDL2}
+		$ENV{SDL2_IMAGE}
+		PATH_SUFFIXES lib64 lib
+		lib/x86_64
+		x86_64-w64-mingw32/lib
+		PATHS
+		/sw
+		/opt/local
+		/opt/csw
+		/opt
+	)
+# On 32bit build find the 32bit libs
+ELSE(CMAKE_SIZEOF_VOID_P EQUAL 8)
+	FIND_LIBRARY(SDL2_IMAGE_LIBRARY_TEMP
+		NAMES SDL2_image
+		HINTS
+		$ENV{SDL2}
+		$ENV{SDL2_IMAGE}
+		PATH_SUFFIXES lib
+		lib/x86
+		i686-w64-mingw32/lib
+		PATHS
+		/sw
+		/opt/local
+		/opt/csw
+		/opt
+	)
+ENDIF(CMAKE_SIZEOF_VOID_P EQUAL 8)
 
 SET(SDL2_IMAGE_FOUND "NO")
 	IF(SDL2_IMAGE_LIBRARY_TEMP)

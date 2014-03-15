@@ -108,6 +108,7 @@ FIND_PATH(SDL2_INCLUDE_DIR SDL.h
 	$ENV{SDL2}
 	PATH_SUFFIXES include/SDL2 include SDL2
 	i686-w64-mingw32/include/SDL2
+	x86_64-w64-mingw32/include/SDL2
 	PATHS
 	~/Library/Frameworks
 	/Library/Frameworks
@@ -119,18 +120,35 @@ FIND_PATH(SDL2_INCLUDE_DIR SDL.h
 	/opt
 )
 
-FIND_LIBRARY(SDL2_LIBRARY_TEMP SDL2
-	HINTS
-	$ENV{SDL2}
-	PATH_SUFFIXES lib64 lib
-	lib/x86
-	i686-w64-mingw32/lib
-	PATHS
-	/sw
-	/opt/local
-	/opt/csw
-	/opt
-)
+# Lookup the 64 bit libs on x64
+IF(CMAKE_SIZEOF_VOID_P EQUAL 8)
+	FIND_LIBRARY(SDL2_LIBRARY_TEMP SDL2
+		HINTS
+		$ENV{SDL2}
+		PATH_SUFFIXES lib64 lib
+		lib/x86_64
+		x86_64-w64-mingw32/lib
+		PATHS
+		/sw
+		/opt/local
+		/opt/csw
+		/opt
+	)
+# On 32bit build find the 32bit libs
+ELSE(CMAKE_SIZEOF_VOID_P EQUAL 8)
+	FIND_LIBRARY(SDL2_LIBRARY_TEMP SDL2
+		HINTS
+		$ENV{SDL2}
+		PATH_SUFFIXES lib
+		lib/x86
+		i686-w64-mingw32/lib
+		PATHS
+		/sw
+		/opt/local
+		/opt/csw
+		/opt
+	)
+ENDIF(CMAKE_SIZEOF_VOID_P EQUAL 8)
 
 IF(NOT SDL2_BUILDING_LIBRARY)
 	IF(NOT ${SDL2_INCLUDE_DIR} MATCHES ".framework")
@@ -138,19 +156,37 @@ IF(NOT SDL2_BUILDING_LIBRARY)
 		# SDL2main. This is mainly for Windows and OS X. Other (Unix) platforms
 		# seem to provide SDL2main for compatibility even though they don't
 		# necessarily need it.
-		FIND_LIBRARY(SDL2MAIN_LIBRARY
-			NAMES SDL2main
-			HINTS
-			$ENV{SDL2}
-			PATH_SUFFIXES lib64 lib
-			lib/x86
-			i686-w64-mingw32/lib
-			PATHS
-			/sw
-			/opt/local
-			/opt/csw
-			/opt
-		)
+		# Lookup the 64 bit libs on x64
+		IF(CMAKE_SIZEOF_VOID_P EQUAL 8)
+			FIND_LIBRARY(SDL2MAIN_LIBRARY
+				NAMES SDL2main
+				HINTS
+				$ENV{SDL2}
+				PATH_SUFFIXES lib64 lib
+				lib/x86_64
+				x86_64-w64-mingw32/lib
+				PATHS
+				/sw
+				/opt/local
+				/opt/csw
+				/opt
+				)
+			# On 32bit build find the 32bit libs
+		ELSE(CMAKE_SIZEOF_VOID_P EQUAL 8)
+			FIND_LIBRARY(SDL2MAIN_LIBRARY
+				NAMES SDL2main
+				HINTS
+				$ENV{SDL2}
+				PATH_SUFFIXES lib
+				lib/x86
+				i686-w64-mingw32/lib
+				PATHS
+				/sw
+				/opt/local
+				/opt/csw
+				/opt
+				)
+		ENDIF(CMAKE_SIZEOF_VOID_P EQUAL 8)
 	ENDIF(NOT ${SDL2_INCLUDE_DIR} MATCHES ".framework")
 ENDIF(NOT SDL2_BUILDING_LIBRARY)
 
