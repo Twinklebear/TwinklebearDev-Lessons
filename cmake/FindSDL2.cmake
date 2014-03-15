@@ -126,7 +126,7 @@ IF(CMAKE_SIZEOF_VOID_P EQUAL 8)
 		HINTS
 		$ENV{SDL2}
 		PATH_SUFFIXES lib64 lib
-		lib/x86_64
+		lib/x64
 		x86_64-w64-mingw32/lib
 		PATHS
 		/sw
@@ -163,7 +163,7 @@ IF(NOT SDL2_BUILDING_LIBRARY)
 				HINTS
 				$ENV{SDL2}
 				PATH_SUFFIXES lib64 lib
-				lib/x86_64
+				lib/x64
 				x86_64-w64-mingw32/lib
 				PATHS
 				/sw

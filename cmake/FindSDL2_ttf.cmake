@@ -113,7 +113,7 @@ IF(CMAKE_SIZEOF_VOID_P EQUAL 8)
 		$ENV{SDL2}
 		$ENV{SDL2_TTF}
 		PATH_SUFFIXES lib64 lib
-		lib/x86_64
+		lib/x64
 		x86_64-w64-mingw32/lib
 		PATHS
 		/sw
