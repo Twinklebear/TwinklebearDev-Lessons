@@ -28,6 +28,7 @@ int main(int argc, char** argv){
 	SDL_Renderer *ren = SDL_CreateRenderer(win, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 	if (ren == nullptr){
 		std::cout << "SDL_CreateRenderer Error: " << SDL_GetError() << std::endl;
+		SDL_DestroyWindow(win);
 		return 1;
 	}
 
@@ -35,6 +36,8 @@ int main(int argc, char** argv){
 	//this lets us choose when to upload or remove textures from the GPU
 	SDL_Surface *bmp = SDL_LoadBMP(ASSET("Lesson1/hello.bmp"));
 	if (bmp == nullptr){
+		SDL_DestroyRenderer(ren);
+		SDL_DestroyWindow(win);
 		std::cout << "SDL_LoadBMP Error: " << SDL_GetError() << std::endl;
 		return 1;
 	}
@@ -45,6 +48,8 @@ int main(int argc, char** argv){
 	//We no longer need the surface
 	SDL_FreeSurface(bmp);
 	if (tex == nullptr){
+		SDL_DestroyRenderer(ren);
+		SDL_DestroyWindow(win);
 		std::cout << "SDL_CreateTextureFromSurface Error: " << SDL_GetError() << std::endl;
 		return 1;
 	}
