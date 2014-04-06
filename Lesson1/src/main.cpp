@@ -1,13 +1,10 @@
 #include <iostream>
-#if defined(_MSC_VER)
 #include <SDL.h>
-#else
-#include <SDL2/SDL.h>
-#endif
+#include "asset.h"
 
-/**
-* Lesson 1: Hello World!
-*/
+/*
+ * Lesson 1: Hello World!
+ */
 int main(int argc, char** argv){
 	//First we need to start up SDL, and make sure it went ok
 	if (SDL_Init(SDL_INIT_EVERYTHING) != 0){
@@ -23,7 +20,7 @@ int main(int argc, char** argv){
 		return 1;
 	}
 
-	//Create a renderer that will draw to the window, -1 specifies that we want to load whichever 
+	//Create a renderer that will draw to the window, -1 specifies that we want to load whichever
 	//video driver supports the flags we're passing
 	//Flags: SDL_RENDERER_ACCELERATED: We want to use hardware accelerated rendering
 	//SDL_RENDERER_PRESENTVSYNC: We want the renderer's present function (update screen) to be
@@ -31,13 +28,16 @@ int main(int argc, char** argv){
 	SDL_Renderer *ren = SDL_CreateRenderer(win, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 	if (ren == nullptr){
 		std::cout << "SDL_CreateRenderer Error: " << SDL_GetError() << std::endl;
+		SDL_DestroyWindow(win);
 		return 1;
 	}
 
 	//SDL 2.0 now uses textures to draw things but SDL_LoadBMP returns a surface
 	//this lets us choose when to upload or remove textures from the GPU
-	SDL_Surface *bmp = SDL_LoadBMP("../res/Lesson1/hello.bmp");
+	SDL_Surface *bmp = SDL_LoadBMP(ASSET("Lesson1/hello.bmp"));
 	if (bmp == nullptr){
+		SDL_DestroyRenderer(ren);
+		SDL_DestroyWindow(win);
 		std::cout << "SDL_LoadBMP Error: " << SDL_GetError() << std::endl;
 		return 1;
 	}
@@ -48,6 +48,8 @@ int main(int argc, char** argv){
 	//We no longer need the surface
 	SDL_FreeSurface(bmp);
 	if (tex == nullptr){
+		SDL_DestroyRenderer(ren);
+		SDL_DestroyWindow(win);
 		std::cout << "SDL_CreateTextureFromSurface Error: " << SDL_GetError() << std::endl;
 		return 1;
 	}
@@ -71,3 +73,4 @@ int main(int argc, char** argv){
 	
 	return 0;
 }
+
