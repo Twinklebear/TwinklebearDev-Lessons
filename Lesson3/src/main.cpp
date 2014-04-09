@@ -3,6 +3,7 @@
 #include <SDL.h>
 #include <SDL_image.h>
 #include "asset.h"
+#include "cleanup.h"
 
 /*
  * Lesson 3: SDL Extension Libraries
@@ -29,8 +30,9 @@ void logSDLError(std::ostream &os, const std::string &msg){
  */
 SDL_Texture* loadTexture(const std::string &file, SDL_Renderer *ren){
 	SDL_Texture *texture = IMG_LoadTexture(ren, file.c_str());
-	if (texture == nullptr)		
+	if (texture == nullptr){	
 		logSDLError(std::cout, "LoadTexture");
+	}
 	return texture;
 }
 /*
@@ -77,11 +79,14 @@ int main(int argc, char** argv){
 	SDL_Window *window = SDL_CreateWindow("Lesson 3", 100, 100, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
 	if (window == nullptr){
 		logSDLError(std::cout, "CreateWindow");
+		SDL_Quit();
 		return 2;
 	}
 	SDL_Renderer *renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 	if (renderer == nullptr){
 		logSDLError(std::cout, "CreateRenderer");
+		cleanup(window);
+		SDL_Quit();
 		return 3;
 	}
 
@@ -89,8 +94,11 @@ int main(int argc, char** argv){
 	SDL_Texture *background = loadTexture(ASSET("Lesson3/background.png"), renderer);
 	SDL_Texture *image = loadTexture(ASSET("Lesson3/image.png"), renderer);
 	//Make sure they both loaded ok
-	if (background == nullptr || image == nullptr)
+	if (background == nullptr || image == nullptr){
+		cleanup(background, image, renderer, window);
+		SDL_Quit();
 		return 4;
+	}
 
 	//Clear the window
 	SDL_RenderClear(renderer);
@@ -120,11 +128,7 @@ int main(int argc, char** argv){
 	SDL_Delay(2000);
 
 	//Destroy the various items
-	SDL_DestroyTexture(background);
-	SDL_DestroyTexture(image);
-	SDL_DestroyRenderer(renderer);
-	SDL_DestroyWindow(window);
-
+	cleanup(background, image, renderer, window);
 	IMG_Quit();
 	SDL_Quit();
 

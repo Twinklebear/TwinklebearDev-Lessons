@@ -3,6 +3,7 @@
 #include <SDL.h>
 #include <SDL_image.h>
 #include "asset.h"
+#include "cleanup.h"
 
 /*
  * Lesson 5: Clipping Sprite Sheets
@@ -27,8 +28,9 @@ void logSDLError(std::ostream &os, const std::string &msg){
  */
 SDL_Texture* loadTexture(const std::string &file, SDL_Renderer *ren){
 	SDL_Texture *texture = IMG_LoadTexture(ren, file.c_str());
-	if (texture == nullptr)		
+	if (texture == nullptr){
 		logSDLError(std::cout, "LoadTexture");
+	}
 	return texture;
 }
 /*
@@ -62,9 +64,9 @@ void renderTexture(SDL_Texture *tex, SDL_Renderer *ren, int x, int y, SDL_Rect *
 		dst.w = clip->w;
 		dst.h = clip->h;
 	}
-	else
+	else {
 		SDL_QueryTexture(tex, NULL, NULL, &dst.w, &dst.h);
-
+	}
 	renderTexture(tex, ren, dst, clip);
 }
 
@@ -80,16 +82,23 @@ int main(int argc, char** argv){
 			SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
 	if (window == nullptr){
 		logSDLError(std::cout, "CreateWindow");
+		SDL_Quit();
 		return 2;
 	}
 	SDL_Renderer *renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 	if (renderer == nullptr){
 		logSDLError(std::cout, "CreateRenderer");
+		cleanup(window);
+		SDL_Quit();
 		return 3;
 	}
 	SDL_Texture *image = loadTexture(ASSET("Lesson5/image.png"), renderer);
-	if (image == nullptr)
+	if (image == nullptr){
+		cleanup(image, renderer, window);
+		IMG_Quit();
+		SDL_Quit();
 		return 4;
+	}
 
 	//iW and iH are the clip width and height
 	//We'll be drawing only clips so get a center position for the w/h of a clip
@@ -115,8 +124,9 @@ int main(int argc, char** argv){
 	while (!quit){
 		//Event Polling
 		while (SDL_PollEvent(&e)){
-			if (e.type == SDL_QUIT)
+			if (e.type == SDL_QUIT){
 				quit = true;
+			}
 			//Use number input to select which clip should be drawn
 			if (e.type == SDL_KEYDOWN){
 				switch (e.key.keysym.sym){
@@ -148,10 +158,7 @@ int main(int argc, char** argv){
 		SDL_RenderPresent(renderer);
 	}
 	//Clean up
-	SDL_DestroyTexture(image);
-	SDL_DestroyRenderer(renderer);
-	SDL_DestroyWindow(window);
-
+	cleanup(image, renderer, window);
 	IMG_Quit();
 	SDL_Quit();
 

@@ -3,6 +3,7 @@
 #include <SDL.h>
 #include <SDL_ttf.h>
 #include "asset.h"
+#include "cleanup.h"
 
 /*
  * Lesson 6: True Type Fonts with SDL_ttf
@@ -50,9 +51,9 @@ void renderTexture(SDL_Texture *tex, SDL_Renderer *ren, int x, int y, SDL_Rect *
 		dst.w = clip->w;
 		dst.h = clip->h;
 	}
-	else
+	else {
 		SDL_QueryTexture(tex, NULL, NULL, &dst.w, &dst.h);
-
+	}
 	renderTexture(tex, ren, dst, clip);
 }
 /*
@@ -100,6 +101,7 @@ int main(int argc, char** argv){
 	//Also need to init SDL_ttf
 	if (TTF_Init() != 0){
 		logSDLError(std::cout, "TTF_Init");
+		SDL_Quit();
 		return 1;
 	}
 
@@ -108,11 +110,16 @@ int main(int argc, char** argv){
 			SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
 	if (window == nullptr){
 		logSDLError(std::cout, "CreateWindow");
+		TTF_Quit();
+		SDL_Quit();
 		return 1;
 	}
 	SDL_Renderer *renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 	if (renderer == nullptr){
 		logSDLError(std::cout, "CreateRenderer");
+		cleanup(window);
+		TTF_Quit();
+		SDL_Quit();
 		return 1;
 	}
 
@@ -121,6 +128,9 @@ int main(int argc, char** argv){
 	SDL_Color color = { 255, 255, 255, 255 };
 	SDL_Texture *image = renderText("TTF fonts are cool!", ASSET("Lesson6/sample.ttf"), color, 64, renderer);
 	if (image == nullptr){
+		cleanup(image, renderer, window);
+		TTF_Quit();
+		SDL_Quit();
 		return 1;
 	}
 
@@ -135,10 +145,12 @@ int main(int argc, char** argv){
 	while (!quit){
 		//Event Polling
 		while (SDL_PollEvent(&e)){
-			if (e.type == SDL_QUIT)
+			if (e.type == SDL_QUIT){
 				quit = true;
-			if (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_ESCAPE)
+			}
+			if (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_ESCAPE){
 				quit = true;
+			}
 		}
 		SDL_RenderClear(renderer);
 		//We can draw our message as we do any other texture, since it's been
@@ -147,11 +159,10 @@ int main(int argc, char** argv){
 		SDL_RenderPresent(renderer);
 	}
 	//Clean up
-	SDL_DestroyTexture(image);
-	SDL_DestroyRenderer(renderer);
-	SDL_DestroyWindow(window);
+	cleanup(image, renderer, window);
 	TTF_Quit();
 	SDL_Quit();
 
 	return 0;
 }
+

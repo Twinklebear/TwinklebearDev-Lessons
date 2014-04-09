@@ -3,6 +3,7 @@
 #include <SDL.h>
 #include <SDL_image.h>
 #include "asset.h"
+#include "cleanup.h"
 
 /*
  * Lesson 4: Handling Events
@@ -27,8 +28,9 @@ void logSDLError(std::ostream &os, const std::string &msg){
  */
 SDL_Texture* loadTexture(const std::string &file, SDL_Renderer *ren){
 	SDL_Texture *texture = IMG_LoadTexture(ren, file.c_str());
-	if (texture == nullptr)		
+	if (texture == nullptr){
 		logSDLError(std::cout, "LoadTexture");
+	}
 	return texture;
 }
 /*
@@ -71,24 +73,31 @@ int main(int argc, char** argv){
 		return 1;
 	}
 
-	//Setup our window and renderer, this time let's put our window in the center 
+	//Setup our window and renderer, this time let's put our window in the center
 	//of the screen
-	SDL_Window *window = SDL_CreateWindow("Lesson 4", SDL_WINDOWPOS_CENTERED, 
+	SDL_Window *window = SDL_CreateWindow("Lesson 4", SDL_WINDOWPOS_CENTERED,
 			SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
 	if (window == nullptr){
 		logSDLError(std::cout, "CreateWindow");
+		SDL_Quit();
 		return 2;
 	}
 	SDL_Renderer *renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 	if (renderer == nullptr){
 		logSDLError(std::cout, "CreateRenderer");
+		cleanup(window);
+		SDL_Quit();
 		return 3;
 	}
 
 	//The texture we'll be using
 	SDL_Texture *image = loadTexture(ASSET("Lesson4/image.png"), renderer);
-	if (image == nullptr)
+	if (image == nullptr){
+		cleanup(image, renderer, window);
+		IMG_Quit();
+		SDL_Quit();
 		return 4;
+	}
 
 	//Our texture size won't change, so we can get it here
 	//instead of constantly allocating/deleting ints in the loop
@@ -105,14 +114,17 @@ int main(int argc, char** argv){
 		//Read any events that occured, for now we'll just quit if any event occurs
 		while (SDL_PollEvent(&e)){
 			//If user closes the window
-			if (e.type == SDL_QUIT)
+			if (e.type == SDL_QUIT){
 				quit = true;
+			}
 			//If user presses any key
-			if (e.type == SDL_KEYDOWN)
+			if (e.type == SDL_KEYDOWN){
 				quit = true;
+			}
 			//If user clicks the mouse
-			if (e.type == SDL_MOUSEBUTTONDOWN)
+			if (e.type == SDL_MOUSEBUTTONDOWN){
 				quit = true;
+			}
 		}
 		//Rendering
 		SDL_RenderClear(renderer);
@@ -121,12 +133,8 @@ int main(int argc, char** argv){
 		//Update the screen
 		SDL_RenderPresent(renderer);
 	}
-
 	//Destroy the various items
-	SDL_DestroyTexture(image);
-	SDL_DestroyRenderer(renderer);
-	SDL_DestroyWindow(window);
-
+	cleanup(image, renderer, window);
 	IMG_Quit();
 	SDL_Quit();
 
