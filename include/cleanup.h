@@ -25,7 +25,7 @@ void cleanup(SDL_Surface *surf){
 template<typename T, typename... Args>
 void cleanup(T *t, Args&&... args){
 	cleanup(t);
-	cleanup(args...);
+	cleanup(std::forward<Args>(args)...);
 }
 
 #endif
