@@ -15,7 +15,7 @@ const char PATH_SEP = '/';
  * Get the resource path for resources located in res/sub_dir
  * It's assumed the project directory is structured like:
  * bin/
- * 	the executable
+ *  the executable
  * res/
  *  Lesson1/
  *  Lesson2/
