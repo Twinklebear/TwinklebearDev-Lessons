@@ -1,9 +1,0 @@
-#ifndef ASSET_H
-#define ASSET_H
-
-//For having CMake set up the absolute asset path for us
-#define ASSET_PATH "@ASSET_PATH@"
-#define ASSET(A) (ASSET_PATH A)
-
-#endif
-
