@@ -2,7 +2,7 @@
 #include <iostream>
 #include <SDL.h>
 #include <SDL_image.h>
-#include "asset.h"
+#include "res_path.h"
 #include "cleanup.h"
 
 /*
@@ -91,7 +91,8 @@ int main(int argc, char** argv){
 	}
 
 	//The texture we'll be using
-	SDL_Texture *image = loadTexture(ASSET("Lesson4/image.png"), renderer);
+	const std::string resPath = getResourcePath("Lesson4");
+	SDL_Texture *image = loadTexture(resPath + "image.png", renderer);
 	if (image == nullptr){
 		cleanup(image, renderer, window);
 		IMG_Quit();

@@ -2,7 +2,7 @@
 #include <iostream>
 #include <SDL.h>
 #include <SDL_image.h>
-#include "asset.h"
+#include "res_path.h"
 #include "cleanup.h"
 
 /*
@@ -91,8 +91,9 @@ int main(int argc, char** argv){
 	}
 
 	//The textures we'll be using
-	SDL_Texture *background = loadTexture(ASSET("Lesson3/background.png"), renderer);
-	SDL_Texture *image = loadTexture(ASSET("Lesson3/image.png"), renderer);
+	const std::string resPath = getResourcePath("Lesson3");
+	SDL_Texture *background = loadTexture(resPath + "background.png", renderer);
+	SDL_Texture *image = loadTexture(resPath + "image.png", renderer);
 	//Make sure they both loaded ok
 	if (background == nullptr || image == nullptr){
 		cleanup(background, image, renderer, window);

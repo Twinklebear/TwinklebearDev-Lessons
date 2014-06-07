@@ -1,6 +1,5 @@
 #include <iostream>
 #include <SDL.h>
-#include "asset.h"
 
 /*
  * Lesson 0: Test to make sure SDL is setup properly

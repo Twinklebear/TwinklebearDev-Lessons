@@ -2,7 +2,7 @@
 #include <iostream>
 #include <SDL.h>
 #include <SDL_ttf.h>
-#include "asset.h"
+#include "res_path.h"
 #include "cleanup.h"
 
 /*
@@ -123,10 +123,11 @@ int main(int argc, char** argv){
 		return 1;
 	}
 
+	const std::string resPath = getResourcePath("Lesson6");
 	//We'll render the string "TTF fonts are cool!" in white
 	//Color is in RGB format
 	SDL_Color color = { 255, 255, 255, 255 };
-	SDL_Texture *image = renderText("TTF fonts are cool!", ASSET("Lesson6/sample.ttf"), color, 64, renderer);
+	SDL_Texture *image = renderText("TTF fonts are cool!", resPath + "sample.ttf", color, 64, renderer);
 	if (image == nullptr){
 		cleanup(image, renderer, window);
 		TTF_Quit();
