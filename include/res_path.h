@@ -5,12 +5,6 @@
 #include <string>
 #include <SDL.h>
 
-#ifdef _WIN32
-const char PATH_SEP = '\\';
-#else
-const char PATH_SEP = '/';
-#endif
-
 /*
  * Get the resource path for resources located in res/sub_dir
  * It's assumed the project directory is structured like:
@@ -23,6 +17,11 @@ const char PATH_SEP = '/';
  * Paths returned will be Project_Root/res/sub_dir
  */
 std::string getResourcePath(const std::string &sub_dir = ""){
+#ifdef _WIN32
+	const char PATH_SEP = '\\';
+#else
+	const char PATH_SEP = '/';
+#endif
 	static std::string base_res;
 	if (base_res.empty()){
 		char *base_path = SDL_GetBasePath();
