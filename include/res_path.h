@@ -33,15 +33,11 @@ std::string getResourcePath(const std::string &sub_dir = ""){
 			std::cerr << "Error getting resource path: " << SDL_GetError() << std::endl;
 			return "";
 		}
-		//The final part of the string should be bin/ so replace it with res/ to
-		//get what the lessons use for the resource path
+		//We replace the last bin/ with res/ to get the the resource path
 		size_t pos = base_res.find_last_of("bin") - 2;
 		base_res = base_res.substr(0, pos) + "res" + PATH_SEP;
 	}
-	if (sub_dir.empty()){
-		return base_res;
-	}
-	return base_res + sub_dir + PATH_SEP;
+	return sub_dir.empty() ? base_res : base_res + sub_dir + PATH_SEP;
 }
 
 #endif
