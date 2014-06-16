@@ -6,7 +6,7 @@
 #include <SDL.h>
 
 /*
- * Get the resource path for resources located in res/sub_dir
+ * Get the resource path for resources located in res/subDir
  * It's assumed the project directory is structured like:
  * bin/
  *  the executable
@@ -14,30 +14,30 @@
  *  Lesson1/
  *  Lesson2/
  *
- * Paths returned will be Project_Root/res/sub_dir
+ * Paths returned will be Project_Root/res/subDir
  */
-std::string getResourcePath(const std::string &sub_dir = ""){
+std::string getResourcePath(const std::string &subDir = ""){
 #ifdef _WIN32
 	const char PATH_SEP = '\\';
 #else
 	const char PATH_SEP = '/';
 #endif
-	static std::string base_res;
-	if (base_res.empty()){
-		char *base_path = SDL_GetBasePath();
-		if (base_path){
-			base_res = base_path;
-			SDL_free(base_path);
+	static std::string baseRes;
+	if (baseRes.empty()){
+		char *basePath = SDL_GetBasePath();
+		if (basePath){
+			baseRes = basePath;
+			SDL_free(basePath);
 		}
 		else {
 			std::cerr << "Error getting resource path: " << SDL_GetError() << std::endl;
 			return "";
 		}
 		//We replace the last bin/ with res/ to get the the resource path
-		size_t pos = base_res.find_last_of("bin") - 2;
-		base_res = base_res.substr(0, pos) + "res" + PATH_SEP;
+		size_t pos = baseRes.find_last_of("bin") - 2;
+		baseRes = baseRes.substr(0, pos) + "res" + PATH_SEP;
 	}
-	return sub_dir.empty() ? base_res : base_res + sub_dir + PATH_SEP;
+	return subDir.empty() ? baseRes : baseRes + subDir + PATH_SEP;
 }
 
 #endif
