@@ -73,7 +73,7 @@ SDL_Texture* renderText(const std::string &message, const std::string &fontFile,
 	if (font == nullptr){
 		logSDLError(std::cout, "TTF_OpenFont");
 		return nullptr;
-	}	
+	}
 	//We need to first render to a surface as that's what TTF_RenderText returns, then
 	//load that surface into a texture
 	SDL_Surface *surf = TTF_RenderText_Blended(font, message.c_str(), color);

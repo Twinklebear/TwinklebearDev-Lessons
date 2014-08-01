@@ -83,14 +83,14 @@ int main(int argc, char** argv){
 	if (window == nullptr){
 		logSDLError(std::cout, "CreateWindow");
 		SDL_Quit();
-		return 2;
+		return 1;
 	}
 	SDL_Renderer *renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 	if (renderer == nullptr){
 		logSDLError(std::cout, "CreateRenderer");
 		cleanup(window);
 		SDL_Quit();
-		return 3;
+		return 1;
 	}
 	const std::string resPath = getResourcePath("Lesson5");
 	SDL_Texture *image = loadTexture(resPath + "image.png", renderer);
@@ -98,7 +98,7 @@ int main(int argc, char** argv){
 		cleanup(image, renderer, window);
 		IMG_Quit();
 		SDL_Quit();
-		return 4;
+		return 1;
 	}
 
 	//iW and iH are the clip width and height

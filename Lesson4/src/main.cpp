@@ -80,14 +80,14 @@ int main(int argc, char** argv){
 	if (window == nullptr){
 		logSDLError(std::cout, "CreateWindow");
 		SDL_Quit();
-		return 2;
+		return 1;
 	}
 	SDL_Renderer *renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 	if (renderer == nullptr){
 		logSDLError(std::cout, "CreateRenderer");
 		cleanup(window);
 		SDL_Quit();
-		return 3;
+		return 1;
 	}
 
 	//The texture we'll be using
@@ -97,7 +97,7 @@ int main(int argc, char** argv){
 		cleanup(image, renderer, window);
 		IMG_Quit();
 		SDL_Quit();
-		return 4;
+		return 1;
 	}
 
 	//Our texture size won't change, so we can get it here
