@@ -92,7 +92,7 @@ SDL_Texture* renderText(const std::string &message, const std::string &fontFile,
 	return texture;
 }
 
-int main(int argc, char** argv){
+int main(int, char**){
 	//Start up SDL and make sure it went ok
 	if (SDL_Init(SDL_INIT_EVERYTHING) != 0){
 		logSDLError(std::cout, "SDL_Init");
