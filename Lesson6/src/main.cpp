@@ -94,7 +94,7 @@ SDL_Texture* renderText(const std::string &message, const std::string &fontFile,
 
 int main(int, char**){
 	//Start up SDL and make sure it went ok
-	if (SDL_Init(SDL_INIT_VIDEO) != 0){
+	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS) != 0){
 		logSDLError(std::cout, "SDL_Init");
 		return 1;
 	}
