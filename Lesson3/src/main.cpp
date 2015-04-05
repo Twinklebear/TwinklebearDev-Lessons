@@ -101,32 +101,36 @@ int main(int, char**){
 		return 1;
 	}
 
-	//Clear the window
-	SDL_RenderClear(renderer);
+	//A sleepy rendering loop, wait for 3 seconds and render and present the screen each time
+	for (int i = 0; i < 3; ++i){
+		//Clear the window
+		SDL_RenderClear(renderer);
 
-	//Determine how many tiles we'll need to fill the screen
-	int xTiles = SCREEN_WIDTH / TILE_SIZE;
-	int yTiles = SCREEN_HEIGHT / TILE_SIZE;
+		//Determine how many tiles we'll need to fill the screen
+		int xTiles = SCREEN_WIDTH / TILE_SIZE;
+		int yTiles = SCREEN_HEIGHT / TILE_SIZE;
 
-	//Draw the tiles by calculating their positions
-	for (int i = 0; i < xTiles * yTiles; ++i){
-		int x = i % xTiles;
-		int y = i / xTiles;
-		renderTexture(background, renderer, x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
+		//Draw the tiles by calculating their positions
+		for (int i = 0; i < xTiles * yTiles; ++i){
+			int x = i % xTiles;
+			int y = i / xTiles;
+			renderTexture(background, renderer, x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
+		}
+
+		//Draw our image in the center of the window
+		//We need the foreground image's width to properly compute the position
+		//of it's top left corner so that the image will be centered
+		int iW, iH;
+		SDL_QueryTexture(image, NULL, NULL, &iW, &iH);
+		int x = SCREEN_WIDTH / 2 - iW / 2;
+		int y = SCREEN_HEIGHT / 2 - iH / 2;
+		renderTexture(image, renderer, x, y);
+
+		//Update the screen
+		SDL_RenderPresent(renderer);
+		//Take a quick break after all that hard work
+		SDL_Delay(1000);
 	}
-
-	//Draw our image in the center of the window
-	//We need the foreground image's width to properly compute the position
-	//of it's top left corner so that the image will be centered
-	int iW, iH;
-	SDL_QueryTexture(image, NULL, NULL, &iW, &iH);
-	int x = SCREEN_WIDTH / 2 - iW / 2;
-	int y = SCREEN_HEIGHT / 2 - iH / 2;
-	renderTexture(image, renderer, x, y);
-
-	//Update the screen
-	SDL_RenderPresent(renderer);
-	SDL_Delay(2000);
 
 	//Destroy the various items
 	cleanup(background, image, renderer, window);

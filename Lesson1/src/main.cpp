@@ -58,16 +58,17 @@ int main(int, char**){
 		return 1;
 	}
 	
-	//Now lets draw our image
-	//First clear the renderer
-	SDL_RenderClear(ren);
-	//Draw the texture
-	SDL_RenderCopy(ren, tex, NULL, NULL);
-	//Update the screen
-	SDL_RenderPresent(ren);
-
-	//Have the program wait for 2000ms so we get a chance to see the screen
-	SDL_Delay(2000);
+	//A sleepy rendering loop, wait for 3 seconds and render and present the screen each time
+	for (int i = 0; i < 3; ++i){
+		//First clear the renderer
+		SDL_RenderClear(ren);
+		//Draw the texture
+		SDL_RenderCopy(ren, tex, NULL, NULL);
+		//Update the screen
+		SDL_RenderPresent(ren);
+		//Take a quick break after all that hard work
+		SDL_Delay(1000);
+	}
 
 	//Clean up our objects and quit
 	SDL_DestroyTexture(tex);

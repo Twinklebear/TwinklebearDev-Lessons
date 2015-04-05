@@ -94,31 +94,35 @@ int main(int, char**){
 		return 1;
 	}
 
-	//Clear the window
-	SDL_RenderClear(renderer);
+	//A sleepy rendering loop, wait for 3 seconds and render and present the screen each time
+	for (int i = 0; i < 3; ++i){
+		//Clear the window
+		SDL_RenderClear(renderer);
 
-	//Get the width and height from the texture so we know how much to move x,y by
-	//to tile it correctly
-	int bW, bH;
-	SDL_QueryTexture(background, NULL, NULL, &bW, &bH);
-	//We want to tile our background so draw it 4 times
-	renderTexture(background, renderer, 0, 0);
-	renderTexture(background, renderer, bW, 0);
-	renderTexture(background, renderer, 0, bH);
-	renderTexture(background, renderer, bW, bH);
+		//Get the width and height from the texture so we know how much to move x,y by
+		//to tile it correctly
+		int bW, bH;
+		SDL_QueryTexture(background, NULL, NULL, &bW, &bH);
+		//We want to tile our background so draw it 4 times
+		renderTexture(background, renderer, 0, 0);
+		renderTexture(background, renderer, bW, 0);
+		renderTexture(background, renderer, 0, bH);
+		renderTexture(background, renderer, bW, bH);
 
-	//Draw our image in the center of the window
-	//We need the foreground image's width to properly compute the position
-	//of it's top left corner so that the image will be centered
-	int iW, iH;
-	SDL_QueryTexture(image, NULL, NULL, &iW, &iH);
-	int x = SCREEN_WIDTH / 2 - iW / 2;
-	int y = SCREEN_HEIGHT / 2 - iH / 2;
-	renderTexture(image, renderer, x, y);
+		//Draw our image in the center of the window
+		//We need the foreground image's width to properly compute the position
+		//of it's top left corner so that the image will be centered
+		int iW, iH;
+		SDL_QueryTexture(image, NULL, NULL, &iW, &iH);
+		int x = SCREEN_WIDTH / 2 - iW / 2;
+		int y = SCREEN_HEIGHT / 2 - iH / 2;
+		renderTexture(image, renderer, x, y);
 
-	//Update the screen
-	SDL_RenderPresent(renderer);
-	SDL_Delay(2000);
+		//Update the screen
+		SDL_RenderPresent(renderer);
+		//Take a quick break after all that hard work
+		SDL_Delay(1000);
+	}
 
 	cleanup(background, image, renderer, window);
 	SDL_Quit();
