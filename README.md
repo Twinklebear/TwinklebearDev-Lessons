@@ -18,8 +18,4 @@ Lesson Index:
 	- An introduction to selecting specific subsets of an image sheet, ie. sprite sheet, that we want to draw
 - **Lesson 6: True Type Fonts with SDL\_ttf**
 	- An introduction to using the SDL\_ttf extension library to render true type fonts
-- **Lesson 7: Taking Advantage of Classes (Undergoing rewrite)**
-	- An introduction to creating an easy to use Window class to manage the SDL Window and SDL Renderer
-- **Lesson 8: Timers (Undergoing rewrite)**
-	- An introduction to using timers in SDL, through the creation and usage of a Timer class
 
