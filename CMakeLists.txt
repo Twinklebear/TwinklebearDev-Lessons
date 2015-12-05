@@ -4,6 +4,7 @@ project(TwinklebearDevLessons)
 # Use our modified FindSDL2* modules
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${TwinklebearDevLessons_SOURCE_DIR}/cmake")
 set(BIN_DIR ${TwinklebearDevLessons_SOURCE_DIR}/bin)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
 # Bump up warning levels appropriately for clang, gcc & msvc and build in debug mode
 if (${CMAKE_CXX_COMPILER_ID} STREQUAL "GNU" OR ${CMAKE_CXX_COMPILER_ID} STREQUAL "Clang")
