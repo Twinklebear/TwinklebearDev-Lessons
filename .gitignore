@@ -60,3 +60,9 @@ ipch/
 Lesson*/Debug
 Lesson*/Release
 out/
+
+# CMake files and directories
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
