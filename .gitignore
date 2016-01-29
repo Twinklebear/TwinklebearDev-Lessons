@@ -62,7 +62,7 @@ Lesson*/Release
 out/
 
 # CMake files and directories
-CMakefiles/
+CMakeFiles/
 CMakeCache.txt
 cmake_install.cmake
 Makefile
