@@ -132,15 +132,19 @@ int main(int, char**){
 			if (e.type == SDL_KEYDOWN){
 				switch (e.key.keysym.sym){
 					case SDLK_1:
+					case SDLK_KP_1:
 						useClip = 0;
 						break;
 					case SDLK_2:
+					case SDLK_KP_2:
 						useClip = 1;
 						break;
 					case SDLK_3:
+					case SDLK_KP_3:
 						useClip = 2;
 						break;
 					case SDLK_4:
+					case SDLK_KP_4:
 						useClip = 3;
 						break;
 					case SDLK_ESCAPE:
