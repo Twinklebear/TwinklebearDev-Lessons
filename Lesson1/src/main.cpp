@@ -24,7 +24,7 @@ int main(int, char**){
 	//video driver supports the flags we're passing
 	//Flags: SDL_RENDERER_ACCELERATED: We want to use hardware accelerated rendering
 	//SDL_RENDERER_PRESENTVSYNC: We want the renderer's present function (update screen) to be
-	//synchornized with the monitor's refresh rate
+	//synchronized with the monitor's refresh rate
 	SDL_Renderer *ren = SDL_CreateRenderer(win, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 	if (ren == nullptr){
 		SDL_DestroyWindow(win);
