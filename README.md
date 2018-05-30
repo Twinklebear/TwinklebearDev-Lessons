@@ -19,3 +19,9 @@ Lesson Index:
 - **Lesson 6: True Type Fonts with SDL\_ttf**
 	- An introduction to using the SDL\_ttf extension library to render true type fonts
 
+Other Language Bindings
+-
+
+- Go: mbenkmann has [SDL2 bindings for Go](https://github.com/mbenkmann/bindings) and [ported
+these tutorials to Go](https://github.com/mbenkmann/bindings/tree/master/examples).
+
