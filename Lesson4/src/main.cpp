@@ -107,7 +107,7 @@ int main(int, char**){
 	int x = SCREEN_WIDTH / 2 - iW / 2;
 	int y = SCREEN_HEIGHT / 2 - iH / 2;
 
-	//Our event structure
+	//Our event union
 	SDL_Event e;
 	//For tracking if we want to quit
 	bool quit = false;
